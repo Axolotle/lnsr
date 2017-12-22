@@ -7,7 +7,7 @@ from random import randint, sample
 
 max_x = 3000
 max_y = 1500
-longest = 0
+# longest = 0
 
 
 def simple_gen():
@@ -29,35 +29,72 @@ def simple_gen():
         current_y += 20
     return group, duplicated_group
 
-def generate_lines():
-    group = Group()
-    duplicated_group = Group(transform='translate(3000)')
-    global longest
+def lines():
+    groups = [Group(), Group()]
+    longest = 0
     current_y = 10
+
     while current_y < max_y:
         line_quantity = randint(1, 8)
         lengths = [randint(5, 30) for l in range(line_quantity)]
-        position = sorted(sample(range(max_x), line_quantity))
+        position = sample(range(max_x), line_quantity)
         for length, pos in zip(lengths, position):
             if pos + length > longest:
                 longest = pos + length
             line = Line((pos, current_y), (pos + length, current_y))
-            if pos < 1500:
-                duplicated_group.add(line)
-            group.add(line)
+            if pos < max_x:
+                groups[1].add(line)
+            groups[0].add(line)
         current_y += randint(1,5) * 10
-    return group, duplicated_group
 
-def generate():
-    doc = Drawing('lightSpeed.svg', profile='tiny')
-    doc['width'] = str(max_y) + 'px'
-    doc['height'] = str(max_y) + 'px'
-    doc['viewBox'] = '0 0 {} {}'.format(max_y, max_y)
-    main = Group(stroke='black', stroke_width='5px')
+    groups[1]['transform'] = 'translate({})'.format(longest)
+    groups.append(animate(longest, 5))
+    container = Group(stroke='black', stroke_width='5px')
+    for g in groups:
+        container.add(g)
+    return container
 
-    group, duplicated_group = generate_lines()
-    main.add(group)
-    main.add(duplicated_group)
+def parallax_lines():
+    groups = [Group() for i in range(3)]
+    duplicated_groups = [Group() for i in range(3)]
+    longest = [0 for i in range(3)]
+
+    current_y = 10
+    while current_y < max_y:
+        line_quantity = randint(1, 9)
+        lengths = [randint(5, 30) for l in range(line_quantity)]
+        position = sample(range(max_x), line_quantity)
+        for i, (length, pos) in enumerate(zip(lengths, position)):
+            if i % 3 is 0 or i is 0: n = 2
+            elif i % 2 is 0: n = 1
+            else: n = 0
+            if pos + length > longest[n]:
+                longest[n] = pos + length
+            line = Line((pos, current_y), (pos + length, current_y))
+            if pos < max_y:
+                duplicated_groups[n].add(line)
+            groups[n].add(line)
+        current_y += randint(1,5) * 10
+
+    dur = 4
+    containers = [Group() for i in range(3)]
+    for c, g, dg, l in zip(containers, groups, duplicated_groups, longest):
+        c.add(g)
+        dg['transform'] = 'translate({})'.format(l)
+        c.add(dg)
+        c.add(animate(l, dur))
+        dur += 0.5
+    return containers
+
+def structure():
+    param = {
+        'profile': 'tiny',
+        'size': (str(max_y) + 'px', str(max_y) + 'px'),
+        'viewBox': '0 0 {} {}'.format(max_y, max_y)
+    }
+    return Drawing('lightSpeed.svg', **param)
+
+def animate(longest, dur):
     anim = AnimateTransform('translate')
     anim.attribs = {
         'type': 'translate',
@@ -65,15 +102,25 @@ def generate():
         'begin': '0s',
         'from': '0 0',
         'to': '-{} 0'.format(longest),
-        'dur': '2.5s',
+        'dur': '{}s'.format(dur),
         'calcMode': 'linear',
         'repeatCount': 'indefinite',
         'attributeName': 'transform'
     }
+    return anim
 
-    main.add(anim)
+def generate():
+    doc = structure()
+    doc.add(lines())
+    return doc.tostring()
+    # doc.save(pretty=True)
+
+def generate_parallax():
+    doc = structure()
+    main = Group(stroke='black', stroke_width='5px')
+    for g in parallax_lines():
+        main.add(g)
     doc.add(main)
 
     return doc.tostring()
     # doc.save(pretty=True)
-# doc.save()
