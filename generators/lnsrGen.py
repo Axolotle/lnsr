@@ -5,16 +5,28 @@ from svgwrite.container import Group
 class Ruler:
     def __init__(self):
         self.w = 2.25
+        self.space = 1.75
         # Generate base points's position for each characters
         self.chars = self.convert_characters()
-        self.total_str = self.total_str()
+        # Generate
+        self.total = self.get_nbmax_str()
 
     def generate(self, n):
         doc = Drawing('lnsr.svg', profile='tiny',
                       size=('500px', '500px'), viewBox='0 0 500 500')
-        doc.add(self.total_str)
+        text, length = self.get_number_str(n)
+        total = self.total
+        total['transform'] = 'translate({})'.format(length)
+        text.add(total)
+        doc.add(text)
 
-        return doc.tostring()
+        return doc
+
+    def draw(self, n):
+        return self.generate(n).tostring()
+
+    def generate_file(self, n):
+        return self.generate(n).save(pretty=True)
 
     def get_polyline(self, char, x):
         polyline = Polyline()
@@ -23,10 +35,13 @@ class Ruler:
 
         return polyline
 
-    def total_str(self):
+    def get_number_str(self, n):
         x = 0
-        text = list('/31 557 600 000 000 000 lns')
-        total_str = Group(
+        text = str(n)
+        text = [text[i-3:i] or text[i-2:i] or text[i-1:i]
+                for i in range(len(text), -1, -3)]
+
+        formated = Group(
             fill='none',
             stroke='black',
             stroke_width=str(self.w) + 'px',
@@ -34,15 +49,28 @@ class Ruler:
             stroke_linejoin='round',
             #stroke_miterlimit=str(w),
         )
+
+        for group in reversed(text):
+            for char in group:
+                formated.add(self.get_polyline(char, x))
+                x += self.w * 3 + self.space
+            x += self.w * 2 + (self.w - self.space)
+
+        return formated, x - self.w
+
+    def get_nbmax_str(self):
+        x = 0
+        text = '/31 557 600 000 000 000 lns'
+        formated = Group()
         for char in text:
             if char is not ' ':
-                total_str.add(self.get_polyline(char, x))
+                formated.add(self.get_polyline(char, x))
                 if char is '/': x += self.w * 5
                 elif char is 'l': x += self.w * 3
                 else: x += self.w * 4
             else: x += self.w * 2
 
-        return total_str
+        return formated
 
     def convert_characters(self):
         # Convert a grid like object into x,y positions
@@ -72,3 +100,5 @@ class Ruler:
         return chars
 
 ruler = Ruler()
+
+ruler.generate_file(31557600000000000)

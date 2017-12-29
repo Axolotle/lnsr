@@ -14,8 +14,7 @@ def parallax():
 
 @app.route('/ruler')
 def rulerRoot():
-    print(ruler)
-    return ruler.generate(1)
+    return ruler.draw(125)
 
 if __name__ == '__main__':
     app.run(debug=True)
