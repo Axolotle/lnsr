@@ -1,5 +1,5 @@
 from svgwrite import Drawing
-from svgwrite.shapes import Polyline
+from svgwrite.shapes import Polyline, Polygon, Rect
 from svgwrite.container import Group
 
 class Ruler:
@@ -8,16 +8,21 @@ class Ruler:
         self.space = 1.75
         # Generate base points's position for each characters
         self.chars = self.convert_characters()
-        # Generate
+        # Generate the ruler's shape
+        self.shape = self.get_ruler_shape()
+        # Generate the ruler's total number string
         self.total = self.get_nbmax_str()
 
     def generate(self, n):
         doc = Drawing('lnsr.svg', profile='tiny',
-                      size=('500px', '500px'), viewBox='0 0 500 500')
+                      size=('2000px', '140px'), viewBox='0 0 2000 140')
+        #              size=('500mm', '50mm'), viewBox='0 0 500 50')
+
         text, length = self.get_number_str(n)
         total = self.total
         total['transform'] = 'translate({})'.format(length)
         text.add(total)
+        text.add(self.shape)
         doc.add(text)
 
         return doc
@@ -38,8 +43,11 @@ class Ruler:
     def get_number_str(self, n):
         x = 0
         text = str(n)
-        text = [text[i-3:i] or text[i-2:i] or text[i-1:i]
-                for i in range(len(text), -1, -3)]
+        remove = len(text) % 3
+        sequence = []
+        if remove is not 0:
+            sequence.append(text[0:remove])
+        sequence += [text[i:i+3] for i in range(remove, len(text), 3)]
 
         formated = Group(
             fill='none',
@@ -50,7 +58,7 @@ class Ruler:
             #stroke_miterlimit=str(w),
         )
 
-        for group in reversed(text):
+        for group in sequence:
             for char in group:
                 formated.add(self.get_polyline(char, x))
                 x += self.w * 3 + self.space
@@ -71,6 +79,24 @@ class Ruler:
             else: x += self.w * 2
 
         return formated
+
+    def get_ruler_shape(self):
+        dpi = 72
+        px = dpi / 25.4
+        width = 299.792458 * px
+        margin = 5 * px
+        height = 30 * px
+
+        points = [
+            (0,0), (width, 0),
+            (width, 10.5 * px), (width + margin, 7.5 * px),
+            (width + margin, 22.5 * px), (width, 19.5 * px),
+            (width, height), (0, height),
+            (0, 19.5 * px), (margin, 22.5 * px),
+            (margin, 7.5 * px), (0, 10.5 * px)
+        ]
+
+        return Polygon(points=points)
 
     def convert_characters(self):
         # Convert a grid like object into x,y positions
@@ -101,4 +127,4 @@ class Ruler:
 
 ruler = Ruler()
 
-ruler.generate_file(31557600000000000)
+ruler.generate_file(124544)
