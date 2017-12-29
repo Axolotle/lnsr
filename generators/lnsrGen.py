@@ -6,6 +6,8 @@ class Ruler:
     def __init__(self):
         self.w = 2.25
         self.space = 1.75
+        self.dpi = 72
+        self.px = self.dpi / 25.4
         # Generate base points's position for each characters
         self.chars = self.convert_characters()
         # Generate the ruler's shape
@@ -15,15 +17,22 @@ class Ruler:
 
     def generate(self, n):
         doc = Drawing('lnsr.svg', profile='tiny',
-                      size=('2000px', '140px'), viewBox='0 0 2000 140')
-        #              size=('500mm', '50mm'), viewBox='0 0 500 50')
+                      size=('900px', '95px'), viewBox='0 0 900 95')
+        main = Group(fill='none', stroke='black', stroke_linejoin='round',
+                     stroke_width=str(self.w) + 'px', stroke_linecap='round')
 
-        text, length = self.get_number_str(n)
+        number, length = self.get_number_str(n)
+        number['transform'] = 'translate({},{})'.format(
+            13 * self.px, 22.5 * self.px - 2 * self.w)
+
         total = self.total
         total['transform'] = 'translate({})'.format(length)
-        text.add(total)
-        text.add(self.shape)
-        doc.add(text)
+        number.add(total)
+
+        main.add(number)
+        main.add(self.shape)
+        main['transform'] = 'translate({},{})'.format(1.125, 1.125)
+        doc.add(main)
 
         return doc
 
@@ -31,7 +40,7 @@ class Ruler:
         return self.generate(n).tostring()
 
     def generate_file(self, n):
-        return self.generate(n).save(pretty=True)
+        return self.generate(n).save()
 
     def get_polyline(self, char, x):
         polyline = Polyline()
@@ -49,15 +58,7 @@ class Ruler:
             sequence.append(text[0:remove])
         sequence += [text[i:i+3] for i in range(remove, len(text), 3)]
 
-        formated = Group(
-            fill='none',
-            stroke='black',
-            stroke_width=str(self.w) + 'px',
-            stroke_linecap='round',
-            stroke_linejoin='round',
-            #stroke_miterlimit=str(w),
-        )
-
+        formated = Group()
         for group in sequence:
             for char in group:
                 formated.add(self.get_polyline(char, x))
@@ -69,6 +70,7 @@ class Ruler:
     def get_nbmax_str(self):
         x = 0
         text = '/31 557 600 000 000 000 lns'
+        
         formated = Group()
         for char in text:
             if char is not ' ':
@@ -81,8 +83,7 @@ class Ruler:
         return formated
 
     def get_ruler_shape(self):
-        dpi = 72
-        px = dpi / 25.4
+        px = self.px
         width = 299.792458 * px
         margin = 5 * px
         height = 30 * px
@@ -118,13 +119,16 @@ class Ruler:
         }
 
         for char in chars:
-            trad = chars[char].replace('a', '1').replace('b', '2').replace('c', '3')
+            trad = chars[char].replace('a', '0').replace('b', '1').replace('c', '2')
             trad = [list(trad[i:i+2]) for i in range(0, len(trad), 2)]
-            chars[char] = [(int(pos[0]) * self.w, (int(pos[1]) + 1) * self.w)
-                            for pos in trad]
+            chars[char] = [(int(pos[0]) * self.w, int(pos[1]) * self.w)
+                           for pos in trad]
 
         return chars
 
 ruler = Ruler()
 
 ruler.generate_file(124544)
+
+print('actual size in gigaoctets of all the ruler files :')
+print(0.000002907589077949524 * 31557600000000000)
