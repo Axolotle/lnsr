@@ -3,10 +3,8 @@ from svgwrite.shapes import Polyline
 from svgwrite.container import Group
 
 
-w = 2.25
-
 def convertCharacters():
-    charas = {
+    chars = {
         '0': 'b4a3a1b0c1c3b4',
         '1': 'c4a4b4b0a1',
         '2': 'c4a4a3c1b0a0',
@@ -22,16 +20,17 @@ def convertCharacters():
         'n': 'a4a2b2c3c4',
         's': 'a4b4b2c2'
     }
-    for chara in charas:
-        trad = charas[chara].replace('a', '1').replace('b', '2').replace('c', '3')
+
+    for char in chars:
+        trad = chars[char].replace('a', '1').replace('b', '2').replace('c', '3')
         trad = [list(trad[i:i+2]) for i in range(0, len(trad), 2)]
-        charas[chara] = [(int(pos[0]) * w, (int(pos[1]) + 1) * w) for pos in trad]
+        chars[char] = [(int(pos[0]) * w, (int(pos[1]) + 1) * w) for pos in trad]
 
-    return charas
+    return chars
 
-def getPolyline(chara, x):
+def getPolyline(char, x):
     polyline = Polyline()
-    for point in characters[chara]:
+    for point in characters[char]:
         polyline.points.append((point[0] + x, point[1]))
 
     return polyline
@@ -48,14 +47,17 @@ def base():
     }
     elements = Group(**style)
     x = 0
-    for chara in text:
-        if chara is not ' ':
-            elements.add(getPolyline(chara, x))
-            x += w * 4
+    for char in text:
+        if char is not ' ':
+            elements.add(getPolyline(char, x))
+            if char is '/': x += w * 5
+            elif char is 'l': x += w * 3
+            else: x += w * 4
         else: x += w * 2
     return elements
 
 
+w = 2.25
 characters = convertCharacters()
 
 doc = Drawing('lnsr.svg', profile='tiny',
