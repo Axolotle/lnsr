@@ -1,6 +1,8 @@
 from svgwrite import Drawing
 from svgwrite.shapes import Polyline, Polygon, Rect
+from svgwrite.path import Path
 from svgwrite.container import Group
+# from svgpathtools import Path, Line as Path_tool, Line
 
 class Ruler:
     def __init__(self):
@@ -36,18 +38,39 @@ class Ruler:
 
         return doc
 
+    def test(self, n):
+        doc = Drawing('lnsrTest.svg', profile='tiny',
+                      size=('200px', '200px'), viewBox='0 0 50 50')
+        main = Group(fill='none', stroke='black', stroke_linejoin='round',
+                     stroke_width=str(self.w) + 'px', stroke_linecap='round')
+
+        main.add(self.get_path(n, 0))
+        main['transform'] = 'translate({},{})'.format(10, 10)
+        doc.add(main)
+
+        return doc
+
     def draw(self, n):
         return self.generate(n).tostring()
 
     def generate_file(self, n):
-        return self.generate(n).save()
+        return self.test(n).save(pretty=True)
 
     def get_polyline(self, char, x):
         polyline = Polyline()
         for point in self.chars[char]:
             polyline.points.append((point[0] + x, point[1]))
-
         return polyline
+
+    def get_path(self, char, x):
+        points = self.chars[str(char)]
+        a, b = points.pop(0)
+        d = 'M{},{}L'.format(a + x, b)
+        for p in points:
+            a, b = p
+            d += '{},{} '.format(a + x, b)
+
+        return Path(d=d)
 
     def get_number_str(self, n):
         x = 0
@@ -70,7 +93,7 @@ class Ruler:
     def get_nbmax_str(self):
         x = 0
         text = '/31 557 600 000 000 000 lns'
-        
+
         formated = Group()
         for char in text:
             if char is not ' ':
@@ -101,6 +124,12 @@ class Ruler:
 
     def convert_characters(self):
         # Convert a grid like object into x,y positions
+
+        def get_pos(pos):
+            pos = [int(p) * self.w for p in pos]
+            pos = [round(p) if round(p) == p else p for p in pos ]
+            return pos
+
         chars = {
             '0': 'b4a3a1b0c1c3b4',
             '1': 'c4a4b4b0a1',
@@ -120,15 +149,11 @@ class Ruler:
 
         for char in chars:
             trad = chars[char].replace('a', '0').replace('b', '1').replace('c', '2')
-            trad = [list(trad[i:i+2]) for i in range(0, len(trad), 2)]
-            chars[char] = [(int(pos[0]) * self.w, int(pos[1]) * self.w)
-                           for pos in trad]
+            trad = [trad[i:i+2] for i in range(0, len(trad), 2)]
+            chars[char] = [get_pos(elem) for elem in trad]
 
         return chars
 
 ruler = Ruler()
 
-ruler.generate_file(124544)
-
-print('actual size in gigaoctets of all the ruler files :')
-print(0.000002907589077949524 * 31557600000000000)
+ruler.generate_file(1)
