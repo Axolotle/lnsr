@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block main %}
+  <img id="title" src="{{ url_for('static', filename='imgs/titre.svg') }}">
+  <img id="rulersvg" src="{{ url_for('static', filename='imgs/light-nanosecond_ruler.svg') }}">
+  <p>La règle de nanoseconde-lumière permet de mesurer la distance parcourue par la lumière en une nanoseconde,<br> soit en un milliardième de seconde (10e-9 s).<br> Ce fragment d’année-lumière mesure exactement :</p>
+{% endblock %}

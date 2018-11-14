@@ -76,7 +76,7 @@ def parallax_lines():
             groups[n].add(line)
         current_y += randint(1,5) * 10
 
-    dur = 4
+    dur = 2
     containers = [Group() for i in range(3)]
     for c, g, dg, l in zip(containers, groups, duplicated_groups, longest):
         c.add(g)
@@ -90,9 +90,10 @@ def structure():
     param = {
         'profile': 'tiny',
         'size': (str(max_y) + 'px', str(max_y) + 'px'),
-        'viewBox': '0 0 {} {}'.format(max_y, max_y)
+        'viewBox': '0 0 {} {}'.format(max_y, max_y),
     }
-    return Drawing('lightSpeed.svg', **param)
+    doc = Drawing('lightSpeed.svg', **param)
+    return doc
 
 def animate(longest, dur):
     anim = AnimateTransform('translate')
@@ -117,10 +118,10 @@ def generate():
 
 def generate_parallax():
     doc = structure()
-    main = Group(stroke='black', stroke_width='5px')
+    main = Group(stroke='#323232', stroke_width='5px')
     for g in parallax_lines():
         main.add(g)
     doc.add(main)
 
-    return doc.tostring()
+    return '<?xml version="1.0"?>' + doc.tostring()
     # doc.save(pretty=True)
