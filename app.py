@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template, Response
 from generators.backgroundGen import generate, generate_parallax
-from generators.lnsrGen import ruler
 from generators.ruler import rulerGenerator
 
 app = Flask(__name__)

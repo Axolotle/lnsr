@@ -16,16 +16,23 @@ class RulerGenerator:
             self.glyphSlashSpace = data['glyphSlashSpace']
             self.styles = data['styles']
 
-            self.rulerOutline = Path(d=data['rulerOutline'], fill=data['styles']['screen']['rulerOutline']['fill'])
+            self.rulerOutline = data['rulerOutline']
             self.rulerTotal = data['rulerTotal']
             self.glyphs = data['glyphs']
 
-    def generate_file(self, specimenNumber):
+    def generate_file(self, specimenNumber,
+                      docType='screen', pathType='stroked'):
         document = self.getSVGDocument(specimenNumber)
-        document.add(self.rulerOutline)
-        specimenPaths = self.textToPaths(self.parseSpecimenNumber(1234567) + self.rulerTotal, pathType="stroked")
-        document.add(self.grouping(specimenPaths, style=self.styles['screen']['stroked']))
-        document.save(pretty=True)
+
+        outline = self.getPath(self.rulerOutline, 0, style=self.styles[docType]['rulerOutline'])
+        document.add(outline)
+
+        text = self.parseSpecimenNumber(specimenNumber) + self.rulerTotal
+        text = self.textToPaths(text, docType=docType, pathType=pathType)
+        text['transform'] = 'translate(12.5, 20.5)'
+        document.add(text)
+
+        # document.save(pretty=True)
         return document.tostring()
 
     def getSVGDocument(self, specimenNumber):
@@ -36,31 +43,25 @@ class RulerGenerator:
             profile='tiny',
         )
 
-    def grouping(self, elements, group=None, style={}):
-        if group is None: group = Group(**style)
-        for element in elements:
-            group.add(element)
-        return group
-
-    def getPath(self, points, xTranslation):
+    def getPath(self, points, xTranslation, style={}):
         parts = ['M {}{}'.format(round(startXPoint + xTranslation, 7), rest)
-                    for startXPoint, rest in points]
-        return Path(d=' '.join(parts))
+                 for startXPoint, rest in points]
+        return Path(d=' '.join(parts), **style)
 
     def parseSpecimenNumber(self, specimenNumber):
         text = str(specimenNumber)
-        splittedText = reversed([text[(i-3 if i-3 > 0 else 0):i]
-                        for i in range(len(text), -1, -3)])
-        return " ".join(splittedText)
+        splittedText = [text[(i-3 if i-3 > 0 else 0):i]
+                        for i in range(len(text), -1, -3)]
+        return " ".join(reversed(splittedText))
 
-    def textToPaths(self, text, xTranslation=0, pathType='filled'):
+    def textToPaths(self, text, xTranslation=0, docType='screen', pathType='stroked'):
         glyphs = self.glyphs[pathType]
-        glyphsPaths = []
+        glyphsPaths = Group(**self.styles[docType][pathType])
         textLen = len(text) - 1
 
         for i, glyph in enumerate(text):
             if glyph is not ' ':
-                glyphsPaths.append(self.getPath(glyphs[glyph], round(xTranslation, 2)))
+                glyphsPaths.add(self.getPath(glyphs[glyph], round(xTranslation, 2)))
                 if glyph is '/' or (i+1 <= textLen and text[i+1] is '/'):
                     xTranslation += self.glyphW + self.glyphSlashSpace
                 elif glyph is 'l':
@@ -70,7 +71,7 @@ class RulerGenerator:
             else:
                 xTranslation += self.spaceW
 
-        return glyphsPaths;
+        return glyphsPaths
 
 
 rulerGenerator = RulerGenerator()

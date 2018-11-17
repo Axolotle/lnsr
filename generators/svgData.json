@@ -2,7 +2,7 @@
     "width": "304.792458mm",
     "height": "30mm",
     "viewBox": "0 0 304.792458 30",
-    "rulerOutline": "M 0,0 v 10.5 l 5,-3 v 15 l -5,-3 v 10.5 h 299.792458 v -10.5 l 5,3 v -15 l -5,3 v -10.5 Z",
+    "rulerOutline": [[0, ",0 v 10.5 l 5,-3 v 15 l -5,-3 v 10.5 h 299.792458 v -10.5 l 5,3 v -15 l -5,3 v -10.5 Z"]],
     "rulerTotal": "/31 557 600 000 000 000 lns",
     "glyphWidth": 2.4,
     "glyphInnerSpaceWidth": 0.6,
