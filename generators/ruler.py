@@ -8,14 +8,17 @@ class RulerGenerator:
     def __init__(self):
         with open('generators/svgData.json', 'r') as data:
             data = loads(data.read())
-            self.size = (data['width'], data['height'])
-            self.viewBox = data['viewBox']
+            self.margin = [data['marginX'], data['marginY']]
+            self.width = round(data['width'] + self.margin[0] * 2, 7)
+            self.height = round(data['height'] + self.margin[1] * 2, 7)
+            self.viewBox = '0 0 {} {}'.format(self.width, self.height)
+
             self.glyphW = data['glyphWidth']
             self.glyphInnerSpaceW = data['glyphInnerSpaceWidth']
             self.spaceW = self.glyphW - self.glyphInnerSpaceW
             self.glyphSlashSpace = data['glyphSlashSpace']
-            self.styles = data['styles']
 
+            self.styles = data['styles']
             self.rulerOutline = data['rulerOutline']
             self.rulerTotal = data['rulerTotal']
             self.glyphs = data['glyphs']
@@ -23,14 +26,17 @@ class RulerGenerator:
     def generate_file(self, specimenNumber,
                       docType='screen', pathType='stroked'):
         document = self.getSVGDocument(specimenNumber)
+        elements = Group()
+        elements['transform'] = 'translate({}, {})'.format(*self.margin)
+        document.add(elements)
 
         outline = self.getPath(self.rulerOutline, 0, style=self.styles[docType]['rulerOutline'])
-        document.add(outline)
+        elements.add(outline)
 
         text = self.parseSpecimenNumber(specimenNumber) + self.rulerTotal
         text = self.textToPaths(text, docType=docType, pathType=pathType)
         text['transform'] = 'translate(12.5, 20.5)'
-        document.add(text)
+        elements.add(text)
 
         # document.save(pretty=True)
         return document.tostring()
@@ -38,7 +44,7 @@ class RulerGenerator:
     def getSVGDocument(self, specimenNumber):
         return Drawing(
             'light-nanosecond_ruler{}.svg'.format(specimenNumber),
-            size=self.size,
+            size=(str(self.width) + "mm", str(self.height) + "mm"),
             viewBox=self.viewBox,
             profile='tiny',
         )
