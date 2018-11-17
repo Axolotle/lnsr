@@ -1,8 +1,10 @@
 from flask import Flask, request, render_template, Response
 from generators.backgroundGen import generate, generate_parallax
 from generators.lnsrGen import ruler
+from generators.ruler import rulerGenerator
 
 app = Flask(__name__)
+
 
 @app.route('/')
 def index():
@@ -18,7 +20,7 @@ def parallax():
 
 @app.route('/ruler')
 def rulerRoot():
-    return ruler.draw(15654525)
+    return Response(response=rulerGenerator.generate_file(2), content_type='image/svg+xml')
 
 @app.route('/lightSpeed.svg')
 def lightSpeedBackground():
