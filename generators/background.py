@@ -16,14 +16,16 @@ class BackgroundGenerator:
         self.verticalLines = round(self.height / self.verticalInterval)
         self.viewBox = '0 0 {} {}'.format(self.width, self.height)
 
-    def generate_file(self):
+    def generateObject(self):
         document = self.getSVGDocument()
         elements = self.getLines()
         print(self.verticalLines)
         document.add(elements)
 
-        # document.save(pretty=True)
-        return document.tostring()
+        return document
+
+    def generateString(self):
+        return self.generateObject().tostring()
 
     def getSVGDocument(self):
         return Drawing(
@@ -50,4 +52,4 @@ class BackgroundGenerator:
 
         return group
 
-backgroundGenerator = BackgroundGenerator()
+background = BackgroundGenerator()

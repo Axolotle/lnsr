@@ -2,7 +2,6 @@ from svgwrite import Drawing
 from svgwrite.path import Path
 from svgwrite.container import Group
 from json import loads, dumps
-from urllib.parse import quote_plus
 from math import ceil
 from time import strftime
 
@@ -11,9 +10,8 @@ class RulerGenerator:
     def __init__(self):
         with open('generators/svgData.json', 'r') as data:
             data = loads(data.read())
-            self.margin = [data['marginX'], data['marginY']]
-            self.width = round(data['width'] + self.margin[0] * 2, 7)
-            self.height = round(data['height'] + self.margin[1] * 2, 7)
+            self.width = data['width']
+            self.height = data['height']
             self.viewBox = '0 0 {} {}'.format(self.width, self.height)
 
             self.glyphW = data['glyphWidth']
@@ -26,29 +24,38 @@ class RulerGenerator:
             self.rulerTotal = data['rulerTotal']
             self.glyphs = data['glyphs']
 
-    def generate_file(self, specimenNumber,
-                      docType='screen', pathType='stroked'):
-        document = self.getSVGDocument(specimenNumber)
+    def generateObject(self, specimenNumber, docType):
+        style = self.styles[docType]
+        width = round(self.width + style['margin'] * 2, 7)
+        height = round(self.height + style['margin'] * 2, 7)
+
+        document = self.getSVGDocument(specimenNumber, width, height)
         elements = Group()
-        elements['transform'] = 'translate({}, {})'.format(*self.margin)
+        elements['transform'] = 'translate({}, {})'.format(style['margin'], style['margin'])
         document.add(elements)
 
-        outline = self.getPath(self.rulerOutline, 0, style=self.styles[docType]['rulerOutline'])
+        outline = self.getPath(self.rulerOutline, 0, style=style['outlineStyle'])
         elements.add(outline)
 
         text = self.numberToString(specimenNumber) + self.rulerTotal
-        text = self.textToPaths(text, docType=docType, pathType=pathType)
+        text = self.textToPaths(text, style['numbersPathType'], style['numbersStyle'])
         text['transform'] = 'translate(12.5, 20.5)'
         elements.add(text)
 
-        # document.save(pretty=True)
-        return '<?xml version="1.0" encoding="UTF-8"?>' + document.tostring()
+        return document
 
-    def getSVGDocument(self, specimenNumber):
+    def generateString(self, specimenNumber, docType):
+        return self.generateObject(specimenNumber, docType).tostring()
+
+    def generateFile(self, specimenNumber, docType, folder):
+        filename = '{}light-nanosecond_ruler{}.svg'.format(folder, specimenNumber)
+        return self.generateObject(specimenNumber, docType).saveas(filename)
+
+    def getSVGDocument(self, specimenNumber, width, height):
         return Drawing(
             'light-nanosecond_ruler{}.svg'.format(specimenNumber),
-            size=(str(self.width) + 'mm', str(self.height) + 'mm'),
-            viewBox=self.viewBox,
+            size=(str(width) + 'mm', str(height) + 'mm'),
+            viewBox='0 0 {} {}'.format(width, height),
             profile='tiny',
         )
 
@@ -63,9 +70,9 @@ class RulerGenerator:
                         for i in range(len(text), -1, -3)]
         return ' '.join(reversed(splittedText))
 
-    def textToPaths(self, text, xTranslation=0, docType='screen', pathType='stroked'):
+    def textToPaths(self, text, pathType, style, xTranslation=0):
         glyphs = self.glyphs[pathType]
-        glyphsPaths = Group(**self.styles[docType][pathType])
+        glyphsPaths = Group(**style)
         textLen = len(text) - 1
 
         for i, glyph in enumerate(text):
@@ -91,4 +98,4 @@ class RulerGenerator:
         }
 
 
-rulerGenerator = RulerGenerator()
+ruler = RulerGenerator()
