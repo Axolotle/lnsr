@@ -67,17 +67,10 @@ main {
     margin-right: calc(-5mm * 1.025 - 2px);
 }
 
-.test {
-    margin: auto;
-    background-color: yellow;
-    height: calc(30mm * 1.025);
-    width: calc(299.792458mm * 1.025);
-}
 
 .hide {
     display: none !important;
 }
-
 
 
 /* ┌─╴╭─╮╭╮╷╶┬╴╭─╴

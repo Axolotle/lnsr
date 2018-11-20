@@ -1,0 +1,157 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    /* background-color: yellow; */
+}
+
+#bg {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+}
+/* section {
+    width: 299.792458mm;
+    height: 290mm;
+    margin: auto;
+    margin-top: 35mm;
+} */
+
+#imgs {
+    position: absolute;
+    top: 0;
+    left: -0.1mm;
+}
+
+
+#ruler {
+    position: absolute;
+    top: 42.5mm;
+    left: 59mm;
+}
+#dimensions {
+    position: absolute;
+    top: 85.35mm;
+    left: 65mm;
+}
+
+#left {
+    position: absolute;
+    top: 112mm;
+    left: 68mm;
+    width: 112mm;
+    display: inline-block;
+}
+
+#right {
+    width: 130.5mm;
+    position: absolute;
+    left: 221mm;
+    top: 112mm;
+    display: inline-block;
+}
+
+#credits {
+    position: absolute;
+    bottom: 30.5mm;
+    left: 60mm;
+}
+
+#cardboard {
+    position: absolute;
+    bottom: 46mm;
+    left: 231mm;
+    width: 100mm;
+    height: 20mm;
+}
+#container {
+    position: absolute;
+    bottom: 45mm;
+    left: 305mm;
+    width: 100mm;
+    height: 20mm;
+}
+.rotate {
+    transform: rotate(-30deg);
+}
+
+.text {
+    font-family: 'PixelPath';
+    font-size: 23.5px;
+    line-height: 24px;
+}
+.text p {
+    margin-bottom: 4mm;
+}
+.text sup {
+    line-height: 0;
+    font-size: 20px;
+}
+.bg {
+    background-color: white;
+}
+/* #left {
+    width: 130.8mm;
+    display: inline-block;
+}
+
+#right {
+    width: 130.8mm;
+    display: inline-block;
+}
+
+
+.topBox {
+    height: 20.8mm;
+    width: 130.8mm;
+    margin-bottom: -0.4mm;
+}
+.topBox img {
+    max-width: 130.8mm;
+}
+
+
+.text {
+    width: 130.8mm;
+    padding: 5mm;
+    padding-top: 9mm;
+    background-color: white;
+
+    border: 0.8mm solid black;
+    border-top: none;
+    border-bottom-left-radius: 0.8mm;
+    border-bottom-right-radius: 0.8mm;
+
+    font-family: 'PixelPath';
+    box-sizing: border-box;
+    font-size: 24px;
+    line-height: 24px;
+}
+.text p {
+    margin-bottom: 4mm;
+}
+.text sup {
+    line-height: 0;
+    font-size: 20px;
+} */
+
+
+
+@page {
+  margin: 0;
+  size: A3 landscape;
+}
+
+/* ┌─╴╭─╮╭╮╷╶┬╴╭─╴
+   ├─╴│ ││││ │ ╰─╮
+   ╵  ╰─╯╵╰╯ ╵ ╶─╯ */
+
+/* PixelPath - https://autre.space/ */
+@font-face {
+  font-family: 'PixelPath';
+  src: url('../fonts/pixelpath/pixelpath-regular-webfont.woff') format('woff'), url('../fonts/pixelpath/pixelpath-regular-webfont.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
