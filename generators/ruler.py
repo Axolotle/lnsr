@@ -2,6 +2,9 @@ from svgwrite import Drawing
 from svgwrite.path import Path
 from svgwrite.container import Group
 from json import loads, dumps
+from urllib.parse import quote_plus
+from math import ceil
+from time import strftime
 
 
 class RulerGenerator:
@@ -33,18 +36,18 @@ class RulerGenerator:
         outline = self.getPath(self.rulerOutline, 0, style=self.styles[docType]['rulerOutline'])
         elements.add(outline)
 
-        text = self.parseSpecimenNumber(specimenNumber) + self.rulerTotal
+        text = self.numberToString(specimenNumber) + self.rulerTotal
         text = self.textToPaths(text, docType=docType, pathType=pathType)
         text['transform'] = 'translate(12.5, 20.5)'
         elements.add(text)
 
         # document.save(pretty=True)
-        return document.tostring()
+        return '<?xml version="1.0" encoding="UTF-8"?>' + document.tostring()
 
     def getSVGDocument(self, specimenNumber):
         return Drawing(
             'light-nanosecond_ruler{}.svg'.format(specimenNumber),
-            size=(str(self.width) + "mm", str(self.height) + "mm"),
+            size=(str(self.width) + 'mm', str(self.height) + 'mm'),
             viewBox=self.viewBox,
             profile='tiny',
         )
@@ -54,11 +57,11 @@ class RulerGenerator:
                  for startXPoint, rest in points]
         return Path(d=' '.join(parts), **style)
 
-    def parseSpecimenNumber(self, specimenNumber):
+    def numberToString(self, specimenNumber):
         text = str(specimenNumber)
         splittedText = [text[(i-3 if i-3 > 0 else 0):i]
                         for i in range(len(text), -1, -3)]
-        return " ".join(reversed(splittedText))
+        return ' '.join(reversed(splittedText))
 
     def textToPaths(self, text, xTranslation=0, docType='screen', pathType='stroked'):
         glyphs = self.glyphs[pathType]
@@ -78,6 +81,14 @@ class RulerGenerator:
                 xTranslation += self.spaceW
 
         return glyphsPaths
+
+    def getContentNumbers(self, specimenNumber):
+        cardboard = ceil(specimenNumber/1328)
+        return {
+            'cardboard': self.numberToString(cardboard),
+            'container': self.numberToString(ceil(cardboard/729)),
+            'date': strftime('%d/%m/%y à %Hh%M')
+        }
 
 
 rulerGenerator = RulerGenerator()
