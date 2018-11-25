@@ -1,9 +1,9 @@
-function init(callback) {
+function init() {
 	display = document.getElementById('display');
 
 	var loader = new THREE.ColladaLoader();
 	loader.options.convertUpAxis = true;
-	loader.load( 'voxelContainer.dae', async function (collada) {
+	loader.load( 'voxelContainer.dae', function (collada) {
 		var container = collada.scene;
 		container.scale.set(0.1, 0.1, 0.1);
 
@@ -35,17 +35,14 @@ function init(callback) {
 			}
 		}
 
-		containers.reset();
 		for (let i = 0; i < containers.length; i++) {
 			for (let j = 0; j < containers[i].length; j++) {
 				scene.add(containers[i][j]);
 			}
 		}
-		renderer.render(scene, camera);
-		await sleep(2000);
-		callback();
-
+		setupAnim();
 	} );
+
 
 	scene = new THREE.Scene();
 
@@ -65,8 +62,6 @@ function init(callback) {
 	directionalLight.position.set(0, 5, -1).normalize();
 	scene.add(directionalLight);
 
-	clock = new THREE.Clock();
-
 	// var gridHelper = new THREE.GridHelper( 19, 20 );
 	// scene.add( gridHelper );
 
@@ -74,6 +69,21 @@ function init(callback) {
 
 	window.addEventListener('resize', onWindowResize, false);
 
+}
+
+async function setupAnim() {
+		n = 1;
+		distance = 0;
+
+		containers.reset();
+		renderer.render(scene, camera);
+		clock = new THREE.Clock();
+
+		numberElem.textContent = 'container n°' + n + '/3194';
+		distanceElem.textContent = '0 m';
+
+		await sleep(2000);
+		animate();
 }
 
 function onWindowResize() {
@@ -90,18 +100,14 @@ async function animate() {
 	var step = delta * meterIn3D;
 
 	distance += step;
-	div2.textContent = 'container n°' + n + '/3194';
-	div.textContent = (distance / meterIn3D).toFixed(3) + ' m';
+	numberElem.textContent = 'container n°' + n + '/3194';
+	distanceElem.textContent = (distance / meterIn3D).toFixed(3) + ' m';
 
 	// cancel the animation after last container
 	if (actualPos >= 57) {
 		cancelAnimationFrame(raf);
 		await sleep(2000);
-		containers.reset();
-		clock = new THREE.Clock();
-		animate();
-		distance = 0;
-		n = 1;
+		setupAnim();
 	}
 	// increment container's number at first and last container
 	else if ((n === maxN - 1 && actualPos >= 38) || (n == 1 && actualPos >= 19)) {
@@ -128,6 +134,7 @@ function sleep(ms) {
 var widthMeter = 6.058;
 var width3D = 19;
 var meterIn3D = width3D / widthMeter;
+var maxN = 4;
 
 if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
@@ -138,12 +145,10 @@ var containers;
 
 var clock, time;
 
-var distance = 0;
-var n = 1;
-var maxN = 4;
+var distance, n;
 
-var div = document.getElementById('data');
-var div2 = document.getElementById('dataCont');
+var numberElem = document.getElementById('containersNumber');
+var distanceElem = document.getElementById('totalDistance');
 
 
 init(animate);
