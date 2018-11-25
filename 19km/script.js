@@ -1,9 +1,9 @@
 function init(callback) {
-	display = document.getElementById( 'display' );
+	display = document.getElementById('display');
 
 	var loader = new THREE.ColladaLoader();
 	loader.options.convertUpAxis = true;
-	loader.load( 'voxelContainer.dae', async function ( collada ) {
+	loader.load( 'voxelContainer.dae', async function (collada) {
 		var container = collada.scene;
 		container.scale.set(0.1, 0.1, 0.1);
 
@@ -35,7 +35,6 @@ function init(callback) {
 			}
 		}
 
-
 		containers.reset();
 		for (let i = 0; i < containers.length; i++) {
 			for (let j = 0; j < containers[i].length; j++) {
@@ -50,21 +49,21 @@ function init(callback) {
 
 	scene = new THREE.Scene();
 
-	camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
-	camera.position.set( 0, 0, -15 );
+	camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
+	camera.position.set(0, 0, -15);
 	camera.lookAt(scene.position);
 
 	renderer = new THREE.WebGLRenderer();
-	renderer.setPixelRatio( window.devicePixelRatio );
-	renderer.setSize( window.innerWidth, window.innerHeight );
-	display.appendChild( renderer.domElement );
+	renderer.setPixelRatio(window.devicePixelRatio);
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	display.appendChild(renderer.domElement);
 
-	var ambientLight = new THREE.AmbientLight( 0xFFFFFF );//0xcccccc
-	scene.add( ambientLight );
+	var ambientLight = new THREE.AmbientLight(0xFFFFFF);//0xcccccc
+	scene.add(ambientLight);
 
-	var directionalLight = new THREE.DirectionalLight( 0xffffff );
-	directionalLight.position.set( 0, 5, -1 ).normalize();
-	scene.add( directionalLight );
+	var directionalLight = new THREE.DirectionalLight(0xffffff);
+	directionalLight.position.set(0, 5, -1).normalize();
+	scene.add(directionalLight);
 
 	clock = new THREE.Clock();
 
@@ -73,7 +72,7 @@ function init(callback) {
 
 	// controls = new THREE.OrbitControls( camera, renderer.domElement );
 
-	window.addEventListener( 'resize', onWindowResize, false );
+	window.addEventListener('resize', onWindowResize, false);
 
 }
 
@@ -88,11 +87,11 @@ async function animate() {
 	time = clock.elapsedTime;
 	var delta = clock.getDelta();
 	var actualPos = containers[0][0].position.x;
-	var step = delta * meterIn3D
+	var step = delta * meterIn3D;
 
 	distance += step;
-	div2.innerHTML = "container n°" + n + "/3194"
-	div.innerHTML = (distance / meterIn3D).toFixed(3) + " m";
+	div2.textContent = 'container n°' + n + '/3194';
+	div.textContent = (distance / meterIn3D).toFixed(3) + ' m';
 
 	// cancel the animation after last container
 	if (actualPos >= 57) {
@@ -106,7 +105,7 @@ async function animate() {
 	}
 	// increment container's number at first and last container
 	else if ((n === maxN - 1 && actualPos >= 38) || (n == 1 && actualPos >= 19)) {
-		console.log("distance", (distance / meterIn3D), actualPos, time);
+		console.log('distance', (distance / meterIn3D), actualPos, time);
 		n++;
 	}
 	// reset second container's position
@@ -120,7 +119,7 @@ async function animate() {
 }
 
 function sleep(ms) {
-	return new Promise (resolve => setTimeout(resolve, ms));
+	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 
@@ -143,8 +142,8 @@ var distance = 0;
 var n = 1;
 var maxN = 4;
 
-var div = document.getElementById("data");
-var div2 = document.getElementById("dataCont");
+var div = document.getElementById('data');
+var div2 = document.getElementById('dataCont');
 
 
 init(animate);
