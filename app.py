@@ -1,10 +1,14 @@
+from os import remove as removeFile
+from zipfile import ZipFile, ZIP_DEFLATED
+from random import randint
+
 from flask import Flask, request, render_template, Response, send_file, after_this_request, session, jsonify
+from flask_weasyprint import HTML, render_pdf
+
 from generators.backgroundGen import generate, generate_parallax
 from generators.ruler import ruler
 from generators.background import background
-from flask_weasyprint import HTML, render_pdf
-from zipfile import ZipFile, ZIP_DEFLATED
-import os
+
 
 app = Flask(__name__)
 app.secret_key = 'lel'
@@ -25,7 +29,6 @@ def rulerRequest():
         'number': session['number'],
         **ruler.getContentNumbers(session['number'])
     })
-
 
 @app.route('/download')
 def fileGeneration():
@@ -50,17 +53,13 @@ def fileGeneration():
     @after_this_request
     def remove_file(response):
         try:
-            os.remove(filename.format('output/', number, '', 'zip'))
+            removeFile(filename.format('output/', number, '', 'zip'))
         except Exception as error:
             app.logger.error("Error removing or closing downloaded file handle", error)
         return response
 
     return send_file(filename.format('output/', number, '', 'zip'),
         as_attachment=True)
-
-@app.route('/bg')
-def bg():
-    return Response(response=background.generateString(), content_type='image/svg+xml')
 
 @app.route('/pdf')
 def pdf():
