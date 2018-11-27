@@ -1,43 +1,61 @@
-from flask import Flask, request, render_template, Response, send_file, after_this_request
+from flask import Flask, request, render_template, Response, send_file, after_this_request, session, jsonify
 from generators.backgroundGen import generate, generate_parallax
 from generators.ruler import ruler
 from generators.background import background
-app = Flask(__name__)
 from flask_weasyprint import HTML, render_pdf
 from zipfile import ZipFile, ZIP_DEFLATED
 import os
 
-lnsr = 101
+app = Flask(__name__)
+app.secret_key = 'lel'
+
+lnsr = 100
 
 @app.route('/')
 def index():
     return render_template('home.html')
 
-@app.route('/fileGen/')
-def fileGeneration():
-    global lnsr
-    lnsr = lnsr + 1
-    filename = '{f}light-nanosecond_ruler{n}{e}.{ext}'
-    pdf = HTML(string=render_template('certificate.html',
-                                      ruler=ruler.generateString(lnsr, 'pdf'),
-                                      bg=background.generateString(),
-                                      **ruler.getContentNumbers(lnsr)))
+@app.route('/rulerRequest', methods=['POST'])
+def rulerRequest():
+    if not 'number' in session:
+        global lnsr
+        lnsr = lnsr + 1
+        session['number'] = lnsr
+    return jsonify({
+        'number': session['number'],
+        **ruler.getContentNumbers(session['number'])
+    })
 
-    with ZipFile(filename.format(f='output/', n=lnsr, e='', ext='zip'), 'w', ZIP_DEFLATED) as zip_file:
-        zip_file.writestr(filename.format(f='', n=lnsr, e='-laser', ext='svg'),
-                          ruler.generateString(lnsr, 'laser'))
-        zip_file.writestr(filename.format(f='', n=lnsr, e='-certificate', ext='pdf'),
+
+@app.route('/download')
+def fileGeneration():
+    if not 'number' in session:
+        return '404'
+    else:
+        number = session['number']
+        session.clear()
+
+    filename = '{}light-nanosecond_ruler{}{}.{}'
+    pdf = HTML(string=render_template('certificate.html',
+                                      ruler=ruler.generateString(number, 'pdf'),
+                                      bg=background.generateString(),
+                                      **ruler.getContentNumbers(number)))
+
+    with ZipFile(filename.format('output/', number, '', 'zip'), 'w', ZIP_DEFLATED) as zip_file:
+        zip_file.writestr(filename.format('', number, '-laser', 'svg'),
+                          ruler.generateString(number, 'laser'))
+        zip_file.writestr(filename.format('', number, '-certificate', 'pdf'),
                           pdf.write_pdf())
 
     @after_this_request
     def remove_file(response):
         try:
-            os.remove('output/test2.zip')
+            os.remove(filename.format('output/', number, '', 'zip'))
         except Exception as error:
             app.logger.error("Error removing or closing downloaded file handle", error)
         return response
 
-    return send_file(filename.format(f='output/', n=lnsr, e='', ext='zip'),
+    return send_file(filename.format('output/', number, '', 'zip'),
         as_attachment=True)
 
 @app.route('/bg')

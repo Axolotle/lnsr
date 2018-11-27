@@ -1,10 +1,34 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike,
+strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption,
+footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+    font-size: 1rem;
+	font: inherit;
+    box-sizing: border-box;
+}
+a {
+    outline:none;
+}
+a:hover {
+    cursor: pointer;
+}
+ul {
+    list-style: none;
+}
+li::before {
+    content: "— ";
+}
+
 
 html, body {
     margin: 0;
     padding: 0;
     color: white;
     font-family: 'PixelPath';
-    font-size: 25px;
+    font-size: 23px;
+    line-height: 23px;
 }
 html {
     background-color: black;
@@ -29,12 +53,12 @@ main {
 
 #title {
     align-self: flex-end;
-    margin-bottom: 1em;
+    margin-bottom: 5mm;
 }
 
 #ruler {
     height: 30.529404mm;
-    margin-left: -1px;
+    margin-left: -0.2mm;
 }
 #ruler:hover {
     cursor: pointer;
@@ -58,13 +82,66 @@ main {
 #separator {
     width: 20mm;
     box-sizing: content-box;
-    border-top: dashed white 2px;
-    border-bottom: dashed white 2px;
-    border-left: solid white 2px;
-    border-right: solid white 2px;
+    border-top: dashed white 0.8mm;
+    border-bottom: dashed white 0.8mm;
+    border-left: solid white 0.8mm;
+    border-right: solid white 0.8mm;
 }
 #ruler-end {
-    margin-right: calc(-5mm * 1.025 - 2px);
+    margin-right: calc(-5mm * 1.025 - 0.2mm);
+}
+
+
+#mesure {
+    margin-top: 10mm;
+    max-width: calc(299.792458mm * 1.025);
+    display: flex;
+}
+#mesure * {
+    box-sizing: border-box;
+}
+#length {
+    width: 100%;
+    border-top: 0.8mm solid white;
+    height: 0.8mm;
+}
+@media (max-width:1451px) {
+    #length {
+        border-style: dashed;
+    }
+}
+.side {
+    height: 4mm;
+    width: 0.8mm;
+    position: relative;
+    top: -1.6mm;
+}
+.left {
+    border-left: 0.8mm solid white;
+    margin-left: -0.2mm;
+    /* margin-right: -0.8mm; */
+}
+.right {
+    border-right: 0.8mm solid white;
+    margin-right: -0.4mm;
+    /* margin-left: -0.8mm; */
+}
+#mesure-number {
+    margin-left: 5mm;
+}
+
+
+section {
+    margin-top: 5mm;
+    width: 100%;
+}
+section p {
+    margin-bottom: 25px;
+    max-width: 60%;
+}
+section span {
+    background-color: white;
+    color: black;
 }
 
 
