@@ -1,9 +1,10 @@
-from svgwrite import Drawing
-from svgwrite.path import Path
-from svgwrite.container import Group
 from json import loads, dumps
 from math import ceil
 from time import strftime
+
+from svgwrite import Drawing
+from svgwrite.path import Path
+from svgwrite.container import Group
 
 
 class RulerGenerator:

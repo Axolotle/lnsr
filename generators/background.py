@@ -1,5 +1,6 @@
 from json import loads
 from random import randint, sample
+
 from svgwrite import Drawing
 from svgwrite.shapes import Line
 from svgwrite.container import Group
