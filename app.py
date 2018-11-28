@@ -41,7 +41,7 @@ def fileGeneration():
     filename = '{}light-nanosecond_ruler{}{}.{}'
     pdf = HTML(string=render_template('certificate.html',
                                       ruler=ruler.generateString(number, 'pdf'),
-                                      bg=background.generateString(),
+                                      bg=background.generate_string('image'),
                                       **ruler.getContentNumbers(number)))
 
     with ZipFile(filename.format('output/', number, '', 'zip'), 'w', ZIP_DEFLATED) as zip_file:
@@ -64,8 +64,8 @@ def fileGeneration():
 @app.route('/pdf')
 def pdf():
     pdf = HTML(string=render_template('certificate.html',
-        ruler=ruler.generateString(lnsr),
-        bg=background.generateString(),
+        ruler=ruler.generateString(lnsr, 'pdf'),
+        bg=background.generate_string('image'),
         **ruler.getContentNumbers(lnsr)))
     with open('test2.pdf', 'wb') as output:
         output.write(pdf.write_pdf())
@@ -79,7 +79,7 @@ def rulerRoot():
 
 @app.route('/lightSpeed.svg')
 def lightSpeedBackground():
-    return Response(response=generate_parallax(), content_type='image/svg+xml')
+    return Response(response=background.generate_string('image'), content_type='image/svg+xml')
 
 if __name__ == '__main__':
     app.run(debug=True)
