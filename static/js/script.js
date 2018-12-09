@@ -7,12 +7,30 @@ function resizeRuler() {
         if (parts.classList.contains("hide")) {
             svgs[0].classList.add("hide");
             parts.classList.remove("hide");
-            document.querySelector("#ruler span").classList.add("white");
+            document.querySelector("#ruler span").classList.add("correction");
         }
     } else if (!parts.classList.contains("hide")) {
         svgs[0].classList.remove("hide")
         parts.classList.add("hide");
-        document.querySelector("#ruler span").classList.remove("white");
+        document.querySelector("#ruler span").classList.remove("correction");
+    }
+}
+
+function displayEquivalentMesure(e) {
+    let dataset = e.target.dataset.equivalent.split("//");
+    let previous = e.target.innerHTML;
+    e.target.innerHTML = dataset.shift();
+    e.target.dataset.equivalent = [...dataset, previous].join("//");
+}
+
+function changeFont(e) {
+    let main = document.getElementById('content');
+    if (main.classList.contains('pxph')) {
+        main.classList.replace('pxph', 'hack');
+        e.target.classList.replace('hack', 'pxph');
+    } else {
+        main.classList.replace('hack', 'pxph');
+        e.target.classList.replace('pxph', 'hack');
     }
 }
 
@@ -27,6 +45,12 @@ var baseW = svgs[1].width.baseVal.value;
 
 window.onresize = resizeRuler;
 resizeRuler();
+
+for (let elem of document.getElementsByClassName('distance')) {
+    elem.onclick = displayEquivalentMesure;
+}
+
+document.getElementById('font-change').onclick = changeFont;
 
 document.getElementById('ruler').onclick = () => {
     return fetch('rulerRequest', {
