@@ -1,0 +1,51 @@
+<svg
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns="http://www.w3.org/2000/svg"
+    id="svg54"
+    width="1000mm"
+    viewBox="499.5 499.5 1 1"
+    version="1.2"
+    height="1000mm">
+    <g id="layer1" transform="matrix(0.001 0 0 0.001 499.5 499.5)" style="fill:none;stroke:red;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;">
+        <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+    </g>
+    <g id="layer2" transform="" style="fill:none;stroke:blue;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;">
+        <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+    </g>
+    <g id="layer3" transform="matrix(1000 0 0 1000 -499500 -499500)" style="fill:none;stroke:yellow;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;">
+        <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+    </g>
+    <g id="layer4" class="hide" transform="matrix(1000000 0 0 1000000 -499999500 -499999500)" style="fill:none;stroke:green;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;">
+        <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+    </g>
+    <g id="layer5" class="hide" transform="matrix(1000000 0 0 1000000 -499999500 -499999500)" style="fill:none;stroke:purple;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;">
+        <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+    </g>
+    <g id="layer6" class="hide" transform="matrix(1000000 0 0 1000000 -499999500 -499999500)" style="fill:none;stroke:white;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;">
+        <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+    </g>
+    <g id="layer7" class="hide" transform="matrix(1000000 0 0 1000000 -499999500 -499999500)" style="fill:none;stroke:orange;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;">
+        <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+    </g>
+</svg>

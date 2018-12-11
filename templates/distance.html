@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block main %}
+<main>
+    <section id="dezoom">
+        {% include 'svgs/dezoom.svg' %}
+    </section>
+</main>
+{% endblock %}
+{% block script %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/svgDezoom.js') }}"></script>
+{% endblock %}
