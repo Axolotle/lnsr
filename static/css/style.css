@@ -20,6 +20,10 @@ ul {
 li::before {
     content: "— ";
 }
+sup {
+    line-height: 0;
+	font-size: smaller;
+}
 
 
 html, body {
@@ -27,8 +31,6 @@ html, body {
     padding: 0;
     color: white;
     font-family: 'PixelPath';
-    font-size: 23px;
-    line-height: 23px;
 }
 html {
     background-color: black;
@@ -40,6 +42,7 @@ body {
     background-size: cover;
     min-height: 100%;
     width: 100%;
+	overflow: hidden;
 }
 main {
     width: 80%;
@@ -50,6 +53,36 @@ main {
     flex-direction: column;
 }
 
+#options {
+	display: flex;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+
+
+a {
+	color: white;
+}
+
+.hack {
+	font-family: 'hack';
+	font-size: 18px;
+	line-height: 32px;
+}
+.pxph {
+	font-family: 'PixelPath';
+    font-size: 27px;
+    line-height: 32px;
+}
+
+
+#content {
+	max-width: 100%;
+}
+#content a {
+	color: #ff00ff;
+}
 
 #title {
     align-self: flex-end;
@@ -57,6 +90,7 @@ main {
 }
 
 #ruler {
+	margin-top: 10mm;
     height: 30.529404mm;
     margin-left: -0.2mm;
 }
@@ -67,11 +101,10 @@ main {
     font-size: 25px;
     color: black;
     position: relative;
-    top: -48px;
+    top: -50px;
     left: 50px;
 }
-#ruler span.white {
-    color: white;
+#ruler span.correction {
     top: -42px;
 }
 
@@ -84,8 +117,8 @@ main {
     box-sizing: content-box;
     border-top: dashed white 0.8mm;
     border-bottom: dashed white 0.8mm;
-    border-left: solid white 0.8mm;
-    border-right: solid white 0.8mm;
+    /* border-left: solid white 0.8mm;
+    border-right: solid white 0.8mm; */
 }
 #ruler-end {
     margin-right: calc(-5mm * 1.025 - 0.2mm);
@@ -132,18 +165,17 @@ main {
 
 
 section {
-    margin-top: 5mm;
+    margin-top: 10mm;
     width: 100%;
 }
 section p {
     margin-bottom: 25px;
-    max-width: 60%;
-}
-section span {
-    background-color: white;
-    color: black;
+    max-width: 70%;
 }
 
+.distance:hover {
+	border-bottom: 0.8mm solid #ff00ff;
+}
 
 .hide {
     display: none !important;
