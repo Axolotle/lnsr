@@ -3,49 +3,83 @@
     xmlns="http://www.w3.org/2000/svg"
     id="svg54"
     width="1000mm"
-    viewBox="499.5 499.5 1 1"
+    viewBox="0 0 1000 1000"
     version="1.2"
     height="1000mm">
-    <g id="layer1" transform="matrix(0.001 0 0 0.001 499.5 499.5)" style="fill:none;stroke:red;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;">
-        <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-    </g>
-    <g id="layer2" transform="" style="fill:none;stroke:blue;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;">
-        <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-    </g>
-    <g id="layer3" transform="matrix(1000 0 0 1000 -499500 -499500)" style="fill:none;stroke:yellow;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;">
-        <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-    </g>
-    <g id="layer4" class="hide" transform="matrix(1000000 0 0 1000000 -499999500 -499999500)" style="fill:none;stroke:green;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;">
-        <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-    </g>
-    <g id="layer5" class="hide" transform="matrix(1000000 0 0 1000000 -499999500 -499999500)" style="fill:none;stroke:purple;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;">
-        <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-    </g>
-    <g id="layer6" class="hide" transform="matrix(1000000 0 0 1000000 -499999500 -499999500)" style="fill:none;stroke:white;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;">
-        <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-    </g>
-    <g id="layer7" class="hide" transform="matrix(1000000 0 0 1000000 -499999500 -499999500)" style="fill:none;stroke:orange;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;">
-        <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
-        <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+
+    <g id="layers" style="fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;">
+        <g id="mm" stroke="grey">
+            <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        </g>
+        <g id="mm" stroke="grey">
+            <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        </g>
+        <g id="mm" stroke="aqua">
+            <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        </g>
+        <g id="mm" stroke="red">
+            <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        </g>
+        <g id="m" stroke="blue">
+            <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+
+            <path vector-effect="non-scaling-stroke" d="m -3743.9601,4924.4702 218.203,-2483.3211 c 0,0 1501.7498,827.7737 1488.9143,717.4039 -12.8354,-110.3699 320.8867,-2060.2367 320.8867,-2060.2367 0,0 1026.8375,1747.5222 988.33108,1434.8077 -38.50641,-312.7145 243.87389,-4212.4483 243.87389,-4212.4483 l 89.84829,-2244.1866 1822.63644,5260.9618 1989.4977,-55.185 141.19,1692.3374 c 0,0 1129.5213,1489.9926 1116.6858,1563.5724"/>
+        </g>
+        <g id="km" stroke="yellow">
+            <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+
+            <ellipse vector-effect="non-scaling-stroke"
+               ry="6356.752" rx="6378.137" cy="6856.752" cx="500"/>
+            <ellipse vector-effect="non-scaling-stroke"
+               ry="6368.752" rx="6390.137" cy="6856.752" cx="500"/>
+            <ellipse vector-effect="non-scaling-stroke"
+               ry="6406.752" rx="6428.137" cy="6856.752" cx="500"/>
+            <ellipse vector-effect="non-scaling-stroke"
+               ry="6436.752" rx="6458.137" cy="6856.752" cx="500"/>
+            <ellipse vector-effect="non-scaling-stroke"
+               ry="7056.752" rx="7078.137" cy="6856.752" cx="500"/>
+        </g>
+        <g id="Mm" stroke="green">
+            <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        </g>
+        <g id="Gm" stroke="purple">
+            <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        </g>
+        <g id="Tm" stroke="white">
+            <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        </g>
+        <g id="Pm" stroke="orange">
+            <circle r="0.5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="5" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="50" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+            <circle r="500" cy="500" cx="500" vector-effect="non-scaling-stroke"/>
+        </g>
     </g>
 </svg>
