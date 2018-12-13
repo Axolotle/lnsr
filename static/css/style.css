@@ -60,15 +60,6 @@ main {
 	width: 100%;
 }
 
-#dezoom svg {
-	top: 0;
-	left: 0;
-	position: absolute;
-	width: 100%;
-	height: 100%;
-}
-
-
 a {
 	color: white;
 }

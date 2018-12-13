@@ -1,14 +1,18 @@
 class SVGMap {
     constructor(element) {
-        this.element = element;
-        this.layers = element.querySelectorAll('#layers > g');
-        this.actualLayer = 3;
+        this.elem = element;
+        this.layers = Array.from(element.querySelectorAll('#layers > g')).map(layer => {
+            return new Layer(layer);
+        });
+        this.actualLayer = 5;
         this.steps = 100;
         this.step = 100;
 
-        for (let layer of this.layers) {
-            layer.classList.add('hide');
+        let elements = this.elem.querySelectorAll(':not(g):not(text)');
+        for (let i = elements.length - 1; i > -1; i--) {
+            elements[i].setAttribute('vector-effect', 'non-scaling-stroke')
         }
+
         this.switchLayer(this.actualLayer);
         this.zoom(0);
 
@@ -20,36 +24,57 @@ class SVGMap {
         window.addEventListener('DOMMouseScroll', (e) => {
             this.zoom(-Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))))
         });
-
     }
 
     zoom(delta) {
         this.step += delta;
         if (this.step <= 0 || this.step >= this.steps) {
-            this.step = delta === -1 ? this.steps - 1 : 0;
+            this.step = delta === -1 ? this.steps : 1;
             this.actualLayer += delta;
             this.switchLayer(this.actualLayer);
         }
-        let actualStep = this.step / this.steps;
-        let x = 499.5 - (Math.pow(actualStep, 3) * 499.5);
-        let y = Math.pow(actualStep, 3) * 999 + 1;
-        this.element.setAttribute('viewBox', [x, x, y, y].join(' '));
 
+        let stepRatio = Math.pow(this.step / this.steps, 3);
+        let start = 499.5 - stepRatio * 499.5;
+        let size = stepRatio * 999 + 1;
+        this.elem.setAttribute('viewBox', [start, start, size, size].join(' '));
+
+        for (let i = this.actualLayer - 1; i <= this.actualLayer + 1; i++) {
+            this.layers[i].updateTextSize(size);
+        }
     }
 
     switchLayer(n) {
-        this.layers[n-2].classList.add('hide');
-        this.layers[n-1].setAttribute('transform',
-            'matrix(0.001 0 0 0.001 499.5 499.5)');
-        this.layers[n-1].classList.remove('hide');
-        this.layers[n].setAttribute('transform', '');
-        this.layers[n].classList.remove('hide');
-        this.layers[n+1].setAttribute('transform',
-            'matrix(1000 0 0 1000 -499500 -499500)');
-        this.layers[n+1].classList.remove('hide');
-        this.layers[n+2].classList.add('hide');
-        // "matrix(1000000 0 0 1000000 -499999500 -499999500)"
+        this.layers[n-2].hide();
+        this.layers[n-1].transform('matrix(0.001 0 0 0.001 499.5 499.5)', 1000);
+        this.layers[n].transform('', 1);
+        this.layers[n+1].transform('matrix(1000 0 0 1000 -499500 -499500)', 0.001);
+        this.layers[n+2].hide();
+    }
+}
 
+class Layer {
+    constructor(layerElem) {
+        this.elem = layerElem;
+        this.elem.classList.add('hide');
+        this.multiplier = 1;
+        this.texts = Array.from(layerElem.getElementsByTagName('text'));
+    }
+
+    hide() {
+        this.elem.classList.add('hide');
+    }
+
+    transform(matrix, multiplier) {
+        this.elem.setAttribute('transform', matrix);
+        this.elem.classList.remove('hide');
+        this.multiplier = multiplier;
+    }
+
+    updateTextSize(width) {
+        for (let text of this.texts) {
+            text.style.fontSize = (width / 1000) * (40 * this.multiplier) + 'px'
+        }
     }
 }
 
