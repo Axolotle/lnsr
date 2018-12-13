@@ -4,7 +4,7 @@ class SVGMap {
         this.layers = Array.from(element.querySelectorAll('#layers > g')).map(layer => {
             return new Layer(layer);
         });
-        this.actualLayer = 5;
+        this.actualLayer = 3;
         this.steps = 100;
         this.step = 100;
 
@@ -40,7 +40,7 @@ class SVGMap {
         this.elem.setAttribute('viewBox', [start, start, size, size].join(' '));
 
         for (let i = this.actualLayer - 1; i <= this.actualLayer + 1; i++) {
-            this.layers[i].updateTextSize(size);
+            this.layers[i].updateTextSize(size, this.step);
         }
     }
 
@@ -57,8 +57,16 @@ class Layer {
     constructor(layerElem) {
         this.elem = layerElem;
         this.elem.classList.add('hide');
+        this.name = layerElem.id + '-' + layerElem.getAttribute('stroke');
         this.multiplier = 1;
         this.texts = Array.from(layerElem.getElementsByTagName('text'));
+        this.textsRange = this.texts.map(text => {
+            if (text.dataset.range) {
+                return text.dataset.range.split("-").map(n => parseInt(n));
+            } else {
+                return undefined;
+            }
+        })
     }
 
     hide() {
@@ -71,9 +79,15 @@ class Layer {
         this.multiplier = multiplier;
     }
 
-    updateTextSize(width) {
-        for (let text of this.texts) {
-            text.style.fontSize = (width / 1000) * (40 * this.multiplier) + 'px'
+    updateTextSize(width, step) {
+        if (this.multiplier !== 1) step += this.multiplier < 1 ? -100 : 100;
+        console.log(this.name, 'step', step);
+        for (let i = this.texts.length - 1; i > -1; i--) {
+            let text = this.texts[i];
+            let range = this.textsRange[i];
+            if ((range && (step >= range[0] && step <= range[1])) || range === undefined) {
+                text.style.fontSize = (width / 1000) * (40 * this.multiplier) + 'px';
+            }
         }
     }
 }
