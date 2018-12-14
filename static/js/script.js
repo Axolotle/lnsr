@@ -1,6 +1,6 @@
 function resizeRuler() {
-    var width = document.getElementsByTagName('main')[0].getBoundingClientRect().width;
-    var separator = document.getElementById("separator").getBoundingClientRect().width;
+    let width = document.getElementsByTagName('main')[0].getBoundingClientRect().width;
+    let separator = document.getElementById("separator").getBoundingClientRect().width;
     if (width <= maxW) {
         let toRemove = maxW - width + separator;
         svgs[1].width.baseVal.value = baseW - toRemove;

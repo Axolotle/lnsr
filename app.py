@@ -18,6 +18,10 @@ lnsr = 100
 def index():
     return render_template('home.html')
 
+@app.route('/distance')
+def dezoom():
+    return render_template('distance.html')
+
 @app.route('/rulerRequest', methods=['POST'])
 def ruler_request():
     if not 'number' in session:
