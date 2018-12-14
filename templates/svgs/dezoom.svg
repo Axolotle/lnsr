@@ -32,8 +32,8 @@
             <circle r="50" cy="500" cx="500"/>
             <circle r="500" cy="500" cx="500"/>
 
-            <text x="505" y="500" data-range="19-35" text-anchor="end">RED CIRCLE r=5</text>
-            <text x="1000" y="500" data-range="92-121">RED/BLUE CIRCLE r=500/0.5</text>
+            <text x="505" y="500" data-range="19 35" text-anchor="end">RED CIRCLE r=5</text>
+            <text x="1000" y="500" data-range="92 121">RED/BLUE CIRCLE r=500/0.5</text>
         </g>
         <g id="m" stroke="blue">
             <circle r="0.5" cy="500" cx="500"/>
@@ -49,16 +49,18 @@
             <circle r="50" cy="500" cx="500"/>
             <circle r="500" cy="500" cx="500"/>
 
-            <ellipse
-               ry="6356.752" rx="6378.137" cy="6856.752" cx="500"/>
-            <ellipse
-               ry="6368.752" rx="6390.137" cy="6856.752" cx="500"/>
-            <ellipse
-               ry="6406.752" rx="6428.137" cy="6856.752" cx="500"/>
-            <ellipse
-               ry="6436.752" rx="6458.137" cy="6856.752" cx="500"/>
-            <ellipse
-               ry="7056.752" rx="7078.137" cy="6856.752" cx="500"/>
+            <g data-translate="0 -6356.752" data-range="110 135">
+                <ellipse
+                   ry="6356.752" rx="6378.137" cy="6856.752" cx="500"/>
+                <ellipse
+                   ry="6368.752" rx="6390.137" cy="6856.752" cx="500"/>
+                <ellipse
+                   ry="6406.752" rx="6428.137" cy="6856.752" cx="500"/>
+                <ellipse
+                   ry="6436.752" rx="6458.137" cy="6856.752" cx="500"/>
+                <ellipse
+                   ry="7056.752" rx="7078.137" cy="6856.752" cx="500"/>
+            </g>
         </g>
         <g id="Mm" stroke="green">
             <circle r="0.5" cy="500" cx="500"/>

@@ -4,7 +4,7 @@ class SVGMap {
         this.layers = Array.from(element.querySelectorAll('#layers > g')).map(layer => {
             return new Layer(layer);
         });
-        this.actualLayer = 3;
+        this.actualLayer = 5;
         this.steps = 100;
         this.step = 100;
 
@@ -40,7 +40,7 @@ class SVGMap {
         this.elem.setAttribute('viewBox', [start, start, size, size].join(' '));
 
         for (let i = this.actualLayer - 1; i <= this.actualLayer + 1; i++) {
-            this.layers[i].updateTextSize(size, this.step);
+            this.layers[i].update(size, this.step);
         }
     }
 
@@ -59,14 +59,19 @@ class Layer {
         this.elem.classList.add('hide');
         this.name = layerElem.id + '-' + layerElem.getAttribute('stroke');
         this.multiplier = 1;
-        this.texts = Array.from(layerElem.getElementsByTagName('text'));
-        this.textsRange = this.texts.map(text => {
-            if (text.dataset.range) {
-                return text.dataset.range.split("-").map(n => parseInt(n));
-            } else {
-                return undefined;
-            }
+        this.texts = Array.from(layerElem.getElementsByTagName('text')).map(elem => {
+            return {
+                elem: elem,
+                range: elem.dataset.range ? parseOptions(elem.dataset.range) : undefined
+            };
         })
+        this.translates = Array.from(layerElem.querySelectorAll('[data-translate]')).map(elem => {
+            return {
+                elem: elem,
+                range: parseOptions(elem.dataset.range),
+                translate: parseOptions(elem.dataset.translate)
+            };
+        });
     }
 
     hide() {
@@ -79,17 +84,41 @@ class Layer {
         this.multiplier = multiplier;
     }
 
-    updateTextSize(width, step) {
+    update(width, step) {
         if (this.multiplier !== 1) step += this.multiplier < 1 ? -100 : 100;
         console.log(this.name, 'step', step);
+        if (this.texts.length > 0) this.updateTextSize(width, step);
+        if (this.translates.length > 0) this.updateTranslate(step);
+    }
+
+    updateTextSize(width, step) {
         for (let i = this.texts.length - 1; i > -1; i--) {
-            let text = this.texts[i];
-            let range = this.textsRange[i];
-            if ((range && (step >= range[0] && step <= range[1])) || range === undefined) {
-                text.style.fontSize = (width / 1000) * (40 * this.multiplier) + 'px';
+            let {elem, range} = this.texts[i];
+            if ((range && (step >= range[0] && step <= range[1]))
+                || range === undefined) {
+                elem.style.fontSize = (width / 1000) * (40 * this.multiplier) + 'px';
             }
         }
     }
+
+    updateTranslate(step) {
+        for (let i = this.translates.length - 1; i > -1; i--) {
+            let {elem, range, translate} = this.translates[i];
+            if (step >= range[0] && step <= range[1]) {
+                let ratio = Math.pow((step - range[0]) / (range[1] - range[0]), 3);
+                elem.setAttribute('transform',
+                    `translate(${ratio * translate[0]},${ratio * translate[1]})`)
+            }
+
+        }
+    }
+}
+
+function parseOptions(str) {
+    return str.split(' ').map(value => {
+        if (value.includes('.')) return parseFloat(value);
+        else return parseInt(value);
+    });
 }
 
 var svgMap = new SVGMap(document.getElementsByTagName('svg')[0]);
