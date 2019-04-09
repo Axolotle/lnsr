@@ -4,7 +4,7 @@ class SVGMap {
         this.layers = Array.from(element.querySelectorAll('#layers > g')).map(layer => {
             return new Layer(layer);
         });
-        this.actualLayer = 5;
+        this.actualLayer = 6;
         this.steps = 100;
         this.step = 100;
 
@@ -16,13 +16,30 @@ class SVGMap {
         this.switchLayer(this.actualLayer);
         this.zoom(0);
 
+        var _this = this;
+        function animate() {
+            _this.zoom(1);
+            requestAnimationFrame(animate);
+        }
         // IE9, Chrome, Safari, Opera
         window.addEventListener('mousewheel', (e) => {
-            this.zoom(-Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))))
+            requestAnimationFrame(() => {
+                this.zoom(-Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))));
+            });
         });
         // Firefox
         window.addEventListener('DOMMouseScroll', (e) => {
-            this.zoom(-Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))))
+            requestAnimationFrame(() => {
+                this.zoom(-Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))));
+            });
+        });
+
+        window.addEventListener('keypress', e => {
+            if (e.key == ' ') {
+                let multiplier = [100, 0, -100];
+                this.layers.filter(layer => !layer.elem.classList.contains('hide'))
+                .forEach(layer => console.log(layer.name, this.step + multiplier.shift()));
+            }
         });
     }
 
@@ -35,8 +52,8 @@ class SVGMap {
         }
 
         let stepRatio = Math.pow(this.step / this.steps, 3);
-        let start = 499.5 - stepRatio * 499.5;
-        let size = stepRatio * 999 + 1;
+        let start = (499.5 - stepRatio * 499.5).toFixed(3);
+        let size = (stepRatio * 999 + 1).toFixed(3);
         this.elem.setAttribute('viewBox', [start, start, size, size].join(' '));
 
         for (let i = this.actualLayer - 1; i <= this.actualLayer + 1; i++) {
@@ -46,10 +63,11 @@ class SVGMap {
 
     switchLayer(n) {
         this.layers[n-2].hide();
-        this.layers[n-1].transform('matrix(0.001 0 0 0.001 499.5 499.5)', 1000);
-        this.layers[n].transform('', 1);
-        this.layers[n+1].transform('matrix(1000 0 0 1000 -499500 -499500)', 0.001);
+        this.layers[n-1].transform(0.001, 1000);
+        this.layers[n].transform(1, 1);
+        this.layers[n+1].transform(1000, 0.001);
         this.layers[n+2].hide();
+        document.getElementById('scale').textContent = this.layers[n].elem.dataset.scalename;
     }
 }
 
@@ -57,59 +75,67 @@ class Layer {
     constructor(layerElem) {
         this.elem = layerElem;
         this.elem.classList.add('hide');
-        this.name = layerElem.id + '-' + layerElem.getAttribute('stroke');
+        this.name = layerElem.dataset.scalename + '-' + layerElem.getAttribute('stroke');
         this.multiplier = 1;
-        this.texts = Array.from(layerElem.getElementsByTagName('text')).map(elem => {
-            return {
-                elem: elem,
-                range: elem.dataset.range ? parseOptions(elem.dataset.range) : undefined
-            };
-        })
-        this.translates = Array.from(layerElem.querySelectorAll('[data-translate]')).map(elem => {
-            return {
-                elem: elem,
-                range: parseOptions(elem.dataset.range),
-                translate: parseOptions(elem.dataset.translate)
-            };
-        });
+	    this.transformables = Array.from(this.elem.getElementsByClassName('data'));
     }
 
     hide() {
         this.elem.classList.add('hide');
     }
 
-    transform(matrix, multiplier) {
-        this.elem.setAttribute('transform', matrix);
+    transform(scale, multiplier) {
+        if (scale !== 1) {
+            let pos = 500 - 500 * scale;
+            let matrix ='matrix('+scale+' 0 0 '+scale+' '+pos+' '+pos+')'
+            this.elem.setAttribute('transform', matrix);
+            this.elem.removeAttribute('id');
+        } else {
+            this.elem.removeAttribute('transform');
+            this.elem.setAttribute('id', 'actual');
+        }
         this.elem.classList.remove('hide');
         this.multiplier = multiplier;
     }
 
     update(width, step) {
         if (this.multiplier !== 1) step += this.multiplier < 1 ? -100 : 100;
-        console.log(this.name, 'step', step);
-        if (this.texts.length > 0) this.updateTextSize(width, step);
-        if (this.translates.length > 0) this.updateTranslate(step);
+
+        this.transformables.forEach(elem => {
+            for (let key in elem.dataset) {
+                let options = parseOptions(elem.dataset[key]);
+                if (key === 'textrange') {
+                    this.updateTextSize(elem, options, width, step);
+                } else if (key === 'translate') {
+                    this.updateTranslate(elem, options, step);
+                } else {
+                    this.updateClass(elem, key, options, step);
+                }
+            }
+        });
     }
 
-    updateTextSize(width, step) {
-        for (let i = this.texts.length - 1; i > -1; i--) {
-            let {elem, range} = this.texts[i];
-            if ((range && (step >= range[0] && step <= range[1]))
-                || range === undefined) {
-                elem.style.fontSize = (width / 1000) * (40 * this.multiplier) + 'px';
-            }
+    updateTextSize(elem, range, width, step) {
+        if (step >= range[0] && step <= range[1]) {
+            elem.style.fontSize = (width / 1000) * (40 * this.multiplier) + 'px';
         }
     }
 
-    updateTranslate(step) {
-        for (let i = this.translates.length - 1; i > -1; i--) {
-            let {elem, range, translate} = this.translates[i];
-            if (step >= range[0] && step <= range[1]) {
-                let ratio = Math.pow((step - range[0]) / (range[1] - range[0]), 3);
-                elem.setAttribute('transform',
-                    `translate(${ratio * translate[0]},${ratio * translate[1]})`)
-            }
+    updateTranslate(elem, opts, step) {
+        if (step >= opts[2] && step <= opts[3]) {
+            let ratio = Math.pow((step - opts[2]) / (opts[3] - opts[2]), 3);
+            elem.setAttribute('transform',
+                'translate('+(ratio * opts[0]).toFixed(3)+','+(ratio * opts[1]).toFixed(3)+')'
+            );
+        }
+    }
 
+    updateClass(elem, cssClass, range, step) {
+        if (step >= range[0] && step <= range[1]) {
+            if (!elem.classList.contains(cssClass))
+                elem.classList.add(cssClass);
+        } else if (elem.classList.contains(cssClass)) {
+            elem.classList.remove(cssClass);
         }
     }
 }

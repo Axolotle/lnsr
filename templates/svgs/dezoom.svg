@@ -1,90 +1,98 @@
-<svg
-    xmlns:svg="http://www.w3.org/2000/svg"
-    xmlns="http://www.w3.org/2000/svg"
-    id="svg54"
-    width="1000mm"
-    viewBox="0 0 1000 1000"
-    version="1.2"
-    height="1000mm">
-
-    <g id="layers">
-        <g id="mm" stroke="grey">
-            <circle r="0.5" cy="500" cx="500"/>
-            <circle r="5" cy="500" cx="500"/>
-            <circle r="50" cy="500" cx="500"/>
-            <circle r="500" cy="500" cx="500"/>
-        </g>
-        <g id="mm" stroke="grey">
-            <circle r="0.5" cy="500" cx="500"/>
-            <circle r="5" cy="500" cx="500"/>
-            <circle r="50" cy="500" cx="500"/>
-            <circle r="500" cy="500" cx="500"/>
-        </g>
-        <g id="mm" stroke="aqua">
-            <circle r="0.5" cy="500" cx="500"/>
-            <circle r="5" cy="500" cx="500"/>
-            <circle r="50" cy="500" cx="500"/>
-            <circle r="500" cy="500" cx="500"/>
-        </g>
-        <g id="mm" stroke="red">
-            <circle r="0.5" cy="500" cx="500"/>
-            <circle r="5" cy="500" cx="500"/>
-            <circle r="50" cy="500" cx="500"/>
-            <circle r="500" cy="500" cx="500"/>
-
-            <text x="505" y="500" data-range="19 35" text-anchor="end">RED CIRCLE r=5</text>
-            <text x="1000" y="500" data-range="92 121">RED/BLUE CIRCLE r=500/0.5</text>
-        </g>
-        <g id="m" stroke="blue">
-            <circle r="0.5" cy="500" cx="500"/>
-            <circle r="5" cy="500" cx="500"/>
-            <circle r="50" cy="500" cx="500"/>
-            <circle r="500" cy="500" cx="500"/>
-            <text x="-727.625" y="2533.124">MONTAGNE ?</text>
-            <path d="m -3743.96,4924.4704 218.203,-2483.3212 1488.9144,717.4039 320.8867,-2060.2366 988.33108,1434.8076 243.8739,-4212.4484 89.8483,-2244.1866 1822.63652,5260.9618 1989.4976,-55.1849 141.1901,1692.3374 1116.6856,1563.5724"/>
-        </g>
-        <g id="km" stroke="yellow">
-            <circle r="0.5" cy="500" cx="500"/>
-            <circle r="5" cy="500" cx="500"/>
-            <circle r="50" cy="500" cx="500"/>
-            <circle r="500" cy="500" cx="500"/>
-
-            <g data-translate="0 -6356.752" data-range="110 135">
-                <ellipse
-                   ry="6356.752" rx="6378.137" cy="6856.752" cx="500"/>
-                <ellipse
-                   ry="6368.752" rx="6390.137" cy="6856.752" cx="500"/>
-                <ellipse
-                   ry="6406.752" rx="6428.137" cy="6856.752" cx="500"/>
-                <ellipse
-                   ry="6436.752" rx="6458.137" cy="6856.752" cx="500"/>
-                <ellipse
-                   ry="7056.752" rx="7078.137" cy="6856.752" cx="500"/>
-            </g>
-        </g>
-        <g id="Mm" stroke="green">
-            <circle r="0.5" cy="500" cx="500"/>
-            <circle r="5" cy="500" cx="500"/>
-            <circle r="50" cy="500" cx="500"/>
-            <circle r="500" cy="500" cx="500"/>
-        </g>
-        <g id="Gm" stroke="purple">
-            <circle r="0.5" cy="500" cx="500"/>
-            <circle r="5" cy="500" cx="500"/>
-            <circle r="50" cy="500" cx="500"/>
-            <circle r="500" cy="500" cx="500"/>
-        </g>
-        <g id="Tm" stroke="white">
-            <circle r="0.5" cy="500" cx="500"/>
-            <circle r="5" cy="500" cx="500"/>
-            <circle r="50" cy="500" cx="500"/>
-            <circle r="500" cy="500" cx="500"/>
-        </g>
-        <g id="Pm" stroke="orange">
-            <circle r="0.5" cy="500" cx="500"/>
-            <circle r="5" cy="500" cx="500"/>
-            <circle r="50" cy="500" cx="500"/>
-            <circle r="500" cy="500" cx="500"/>
-        </g>
+<?xml version="1.0" encoding="utf-8" ?>
+<svg baseProfile="tiny" height="1000px" version="1.2" viewBox="0 0 1000 1000" width="1000px" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs/>
+  <g id="layers">
+    <g data-scalename="mm" stroke="grey">
+      <circle cx="500" cy="500" r="0.5"/>
+      <circle cx="500" cy="500" r="5"/>
+      <circle cx="500" cy="500" r="50"/>
+      <circle cx="500" cy="500" r="500"/>
     </g>
+    <g data-scalename="mm" stroke="grey">
+      <circle cx="500" cy="500" r="0.5"/>
+      <circle cx="500" cy="500" r="5"/>
+      <circle cx="500" cy="500" r="50"/>
+      <circle cx="500" cy="500" r="500"/>
+    </g>
+    <g data-scalename="mm" stroke="aqua">
+      <circle cx="500" cy="500" r="0.5"/>
+      <circle cx="500" cy="500" r="5"/>
+      <circle cx="500" cy="500" r="50"/>
+      <circle cx="500" cy="500" r="500"/>
+    </g>
+    <g data-scalename="mm" stroke="red">
+      <circle cx="500" cy="500" r="0.5"/>
+      <circle cx="500" cy="500" r="5"/>
+      <circle cx="500" cy="500" r="50"/>
+      <circle cx="500" cy="500" r="500"/>
+      <path d="M 350.103771,485 v 30 h 299.792458 v -10.5 l 5,3 v -15 l -5,3 v -10.5 Z"/>
+    </g>
+    <g data-scalename="m" stroke="blue">
+      <circle cx="500" cy="500" r="0.5"/>
+      <circle cx="500" cy="500" r="5"/>
+      <circle cx="500" cy="500" r="50"/>
+      <circle cx="500" cy="500" r="500"/>
+      <text x="11771" y="-1000">Challenger Deep</text>
+      <path d="M500,-2500 10971,-1000 500,500"/>
+      <text class="end" x="-9348" y="2000">Mont Everest</text>
+      <path class="dotted" d="M500,500 -8848,2000 500,3500"/>
+    </g>
+    <g data-scalename="km" stroke="yellow">
+      <g>
+        <circle cx="500" cy="500" r="0.5"/>
+        <circle cx="500" cy="500" r="5"/>
+        <circle cx="500" cy="500" r="50"/>
+        <circle cx="500" cy="500" r="500"/>
+      </g>
+      <path class="test" d="M495" stroke="red"/>
+      <g class="data" data-dotted="65 125" data-hide="136 140" data-translate="-6378.137 0 110 135">
+        <ellipse cx="6878.137" cy="500" rx="1220" ry="1220"/>
+        <ellipse cx="6878.137" cy="500" rx="3480" ry="3480"/>
+        <ellipse cx="6878.137" cy="500" rx="6365" ry="6365"/>
+        <text class="mid data" data-textrange="0 50" x="500" y="505">Surface</text>
+        <ellipse cx="6878.137" cy="500" rx="6378.137" ry="6356.752"/>
+        <text class="mid data" data-textrange="20 38" x="494" y="490">Troposphère</text>
+        <ellipse cx="6878.137" cy="500" rx="6390.137" ry="6368.752"/>
+        <text class="mid data" data-textrange="20 50" x="469" y="490">Stratosphère</text>
+        <ellipse cx="6878.137" cy="500" rx="6428.137" ry="6406.752"/>
+        <text class="mid data" data-textrange="20 52" x="435" y="490">Mésosphère</text>
+        <ellipse cx="6878.137" cy="500" rx="6458.137" ry="6436.752"/>
+        <text class="mid data" data-textrange="20 100" x="140" y="490">Thermosphère</text>
+        <ellipse cx="6878.137" cy="500" rx="7078.137" ry="7056.752"/>
+        <text class="mid data" data-textrange="0 150" x="6878.137" y="500">Terre</text>
+      </g>
+      <g class="data" data-translate="-375121.863 0 115 190">
+        <text class="mid data" data-textrange="0 150" x="-6878.137" y="490">Lune</text>
+        <ellipse cx="-6878.137" cy="500" rx="1737.4" ry="1735.97"/>
+      </g>
+    </g>
+    <g data-scalename="Mm" stroke="green">
+      <circle cx="500" cy="500" r="0.5"/>
+      <circle cx="500" cy="500" r="5"/>
+      <circle cx="500" cy="500" r="50"/>
+      <circle cx="500" cy="500" r="500"/>
+      <text class="mid data" data-textrange="0 50" x="500" y="500">Terre</text>
+      <ellipse cx="500" cy="500" rx="6.378137" ry="6.356752"/>
+      <text class="mid data" data-textrange="0 150" x="118.5" y="500">Lune</text>
+      <ellipse cx="118.5" cy="500" rx="1.7374" ry="1.73597"/>
+    </g>
+    <g data-scalename="Gm" stroke="purple">
+      <circle cx="500" cy="500" r="0.5"/>
+      <circle cx="500" cy="500" r="5"/>
+      <circle cx="500" cy="500" r="50"/>
+      <circle cx="500" cy="500" r="500"/>
+    </g>
+    <g data-scalename="Tm" stroke="white">
+      <circle cx="500" cy="500" r="0.5"/>
+      <circle cx="500" cy="500" r="5"/>
+      <circle cx="500" cy="500" r="50"/>
+      <circle cx="500" cy="500" r="500"/>
+    </g>
+    <g data-scalename="Pm" stroke="orange">
+      <circle cx="500" cy="500" r="0.5"/>
+      <circle cx="500" cy="500" r="5"/>
+      <circle cx="500" cy="500" r="50"/>
+      <circle cx="500" cy="500" r="500"/>
+    </g>
+  </g>
 </svg>

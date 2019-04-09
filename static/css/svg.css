@@ -15,4 +15,39 @@
 svg text {
     stroke: none;
     fill: white;
+	background-color: yellow;
+}
+#scale {
+	position: absolute;
+	font-size: 50px;
+	top: 0;
+	left: 15px;
+}
+
+.test {
+	stroke-width: 6;
+}
+.t {
+    transform-origin: center;
+    transform-box: fill-box;
+}
+
+/* #small {
+	transform: matrix(0.001, 0, 0, 0.001, 499.5, 499.5);
+	transform: matrix3d(0.001, 0, 0, 0, 0, 0.001, 0, 0, 0, 0, 1, 0, 499.5, 499.5, 0, 0);
+}
+#big {
+	transform: matrix(1000, 0, 0, 1000, -499500, -499500);
+	transform: matrix3d(1000, 0, 0, 0, 0, 1000, 0, 0, 0, 0, 1, 0, -499500, -499500);
+} */
+
+text.mid {
+	text-anchor: middle;
+}
+text.end {
+	text-anchor: end;
+}
+
+.dotted {
+	stroke-dasharray: 1rem;
 }
