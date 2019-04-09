@@ -108,6 +108,8 @@ class Layer {
                     this.updateTextSize(elem, options, width, step);
                 } else if (key === 'translate') {
                     this.updateTranslate(elem, options, step);
+                } else if (key === 'scale') {
+                    this.updateScale(elem, options, step);
                 } else {
                     this.updateClass(elem, key, options, step);
                 }
@@ -116,16 +118,29 @@ class Layer {
     }
 
     updateTextSize(elem, range, width, step) {
+        // range indexes: {0: startStep, 1: endStep}
         if (step >= range[0] && step <= range[1]) {
             elem.style.fontSize = (width / 1000) * (40 * this.multiplier) + 'px';
         }
     }
 
     updateTranslate(elem, opts, step) {
+        // opts indexes: {0: translateX, 1: translateY, 2: startStep, 3: endStep}
         if (step >= opts[2] && step <= opts[3]) {
             let ratio = Math.pow((step - opts[2]) / (opts[3] - opts[2]), 3);
             elem.setAttribute('transform',
                 'translate('+(ratio * opts[0]).toFixed(3)+','+(ratio * opts[1]).toFixed(3)+')'
+            );
+        }
+    }
+
+    updateScale(elem, opts, step) {
+        // opts indexes: {0: scaleX, 1: scaleY, 2: translateX, 3: translateY, 4: startStep, 5: endStep}
+        if (step >= opts[4] && step <= opts[5]) {
+            let ratio = Math.pow((step - opts[4]) / (opts[5] - opts[4]), 3);
+            ratio = [ratio * opts[0], ratio * opts[1]];
+            elem.setAttribute('transform',
+                'matrix('+(ratio[0]+1)+' 0 0 '+(ratio[1]+1)+' '+(ratio[0]*opts[2])+' '+(ratio[1]*opts[3])+')'
             );
         }
     }
