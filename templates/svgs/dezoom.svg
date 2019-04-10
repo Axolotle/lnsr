@@ -35,25 +35,27 @@
       <text x="11771" y="-1000">Challenger Deep</text>
       <path d="M500,-2500 10971,-1000 500,500"/>
       <text class="end" x="-9348" y="2000">Mont Everest</text>
-      <path class="dotted" d="M500,500 -8848,2000 500,3500"/>
+      <path d="M500,500 -8848,2000 500,3500"/>
     </g>
     <g data-scalename="km" stroke="yellow">
       <g class="data" data-translate="-6378.137 0 110 130">
         <text class="mid data" data-textrange="0 50" x="500" y="505">Surface</text>
         <ellipse cx="6878.137" cy="500" rx="6378.137" ry="6356.752"/>
-        <text class="mid data" data-textrange="20 38" x="494" y="490">Troposphère</text>
-        <ellipse class="data" cx="6878.137" cy="500" data-dotted="20 115" data-hide="115 200" rx="6390.137" ry="6368.752"/>
-        <text class="mid data" data-textrange="20 50" x="469" y="490">Stratosphère</text>
-        <ellipse class="data" cx="6878.137" cy="500" data-dotted="20 115" data-hide="115 200" rx="6428.137" ry="6406.752"/>
-        <text class="mid data" data-textrange="20 52" x="435" y="490">Mésosphère</text>
-        <ellipse class="data" cx="6878.137" cy="500" data-dotted="20 115" data-hide="115 200" rx="6458.137" ry="6436.752"/>
-        <text class="mid data" data-textrange="20 100" x="140" y="490">Thermosphère</text>
-        <ellipse class="data" cx="6878.137" cy="500" data-dotted="20 115" data-hide="115 200" rx="7078.137" ry="7056.752"/>
+        <g class="data" data-dotted="45 115" data-hide="115 200">
+          <text class="mid data" data-textrange="20 38" x="494" y="490">Troposphère</text>
+          <ellipse cx="6878.137" cy="500" rx="6390.137" ry="6368.752"/>
+          <text class="mid data" data-textrange="20 50" x="469" y="490">Stratosphère</text>
+          <ellipse cx="6878.137" cy="500" rx="6428.137" ry="6406.752"/>
+          <text class="mid data" data-textrange="20 52" x="435" y="490">Mésosphère</text>
+          <ellipse cx="6878.137" cy="500" rx="6458.137" ry="6436.752"/>
+          <text class="mid data" data-textrange="20 100" x="140" y="490">Thermosphère</text>
+          <ellipse cx="6878.137" cy="500" rx="7078.137" ry="7056.752"/>
+        </g>
         <g class="data" data-translate="-374020.863 0 130 190">
-          <path class="top data" d="M -1262.6,500 h1262.6" data-dotted="130 200" data-scale="266.34 0 1337.69 0 130 190" data-show="130 200" stroke="red"/>
-          <g class="data" data-hide="140 150" transform="translate(-4000, 0)">
+          <path class="top data" d="M -1262.6,500 h1262.6" data-dotted="130 190" data-fade="150 190" data-scale="266.34 0 1337.69 0 130 190" data-show="130 200" stroke="red"/>
+          <g transform="translate(-4000, 0)">
             <text class="mid data" data-textrange="0 150" x="500" y="490">Lune</text>
-            <ellipse cx="500" cy="500" rx="1737.4" ry="1735.97"/>
+            <ellipse class="data" cx="500" cy="500" data-filled="130 200" rx="1737.4" ry="1735.97"/>
           </g>
         </g>
       </g>

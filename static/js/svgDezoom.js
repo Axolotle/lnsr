@@ -35,11 +35,10 @@ class SVGMap {
         });
 
         window.addEventListener('keypress', e => {
-            if (e.key == ' ') {
-                let multiplier = [100, 0, -100];
-                this.layers.filter(layer => !layer.elem.classList.contains('hide'))
-                .forEach(layer => console.log(layer.name, this.step + multiplier.shift()));
-            }
+            if (e.key != ' ') return;
+            let multiplier = 1;
+            this.layers.filter(layer => !layer.elem.classList.contains('hide'))
+            .forEach(layer => console.log(layer.name, this.step + 100 * multiplier--));
         });
     }
 
@@ -104,14 +103,16 @@ class Layer {
         this.transformables.forEach(elem => {
             for (let key in elem.dataset) {
                 let options = parseOptions(elem.dataset[key]);
-                if (key === 'textrange') {
+                if (key == 'textrange') {
                     this.updateTextSize(elem, options, width, step);
-                } else if (key === 'translate') {
+                } else if (key == 'translate') {
                     this.updateTranslate(elem, options, step);
-                } else if (key === 'scale') {
+                } else if (key == 'scale') {
                     this.updateScale(elem, options, step);
                 } else if (['hide', 'show'].includes(key)) {
                     this.updateDisplay(elem, key, options, step);
+                } else if (key == 'fade') {
+                    this.updateFading(elem, options, step);
                 } else {
                     this.updateClass(elem, key, options, step);
                 }
@@ -154,6 +155,13 @@ class Layer {
             : (key === 'show' && !isHidden) || (key === 'hide' &&  isHidden);
         if (toggle) {
             elem.classList.toggle('hide');
+        }
+    }
+
+    updateFading(elem, opts, step) {
+        if (step >= opts[1] && step <= opts[2]) {
+            let opacity = Math.pow((step - opts[1]) / (opts[2] - opts[1]), 3);
+            elem.style.opacity = opts[0] === 0 ? 1 - opacity : opacity;
         }
     }
 
