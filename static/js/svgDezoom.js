@@ -110,6 +110,8 @@ class Layer {
                     this.updateTranslate(elem, options, step);
                 } else if (key === 'scale') {
                     this.updateScale(elem, options, step);
+                } else if (['hide', 'show'].includes(key)) {
+                    this.updateDisplay(elem, key, options, step);
                 } else {
                     this.updateClass(elem, key, options, step);
                 }
@@ -142,6 +144,16 @@ class Layer {
             elem.setAttribute('transform',
                 'matrix('+(ratio[0]+1)+' 0 0 '+(ratio[1]+1)+' '+(ratio[0]*opts[2])+' '+(ratio[1]*opts[3])+')'
             );
+        }
+    }
+
+    updateDisplay(elem, key, range, step) {
+        let isHidden = elem.classList.contains('hide');
+        let toggle = step >= range[0] && step <= range[1] // is in range
+            ? (key === 'show' &&  isHidden) || (key === 'hide' && !isHidden)
+            : (key === 'show' && !isHidden) || (key === 'hide' &&  isHidden);
+        if (toggle) {
+            elem.classList.toggle('hide');
         }
     }
 

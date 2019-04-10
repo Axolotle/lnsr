@@ -50,8 +50,8 @@
         <text class="mid data" data-textrange="20 100" x="140" y="490">Thermosphère</text>
         <ellipse class="data" cx="6878.137" cy="500" data-dotted="20 115" data-hide="115 200" rx="7078.137" ry="7056.752"/>
         <g class="data" data-translate="-374020.863 0 130 190">
-          <path class="top data" d="M -1762.6,500 h2262.6" data-scale="166.3 0 1762.6 0 130 190" stroke="red"/>
-          <g transform="translate(-4000, 0)">
+          <path class="top data" d="M -1262.6,500 h1262.6" data-dotted="130 200" data-scale="266.34 0 1337.69 0 130 190" data-show="130 200" stroke="red"/>
+          <g class="data" data-hide="140 150" transform="translate(-4000, 0)">
             <text class="mid data" data-textrange="0 150" x="500" y="490">Lune</text>
             <ellipse cx="500" cy="500" rx="1737.4" ry="1735.97"/>
           </g>
