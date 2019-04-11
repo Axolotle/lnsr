@@ -1,0 +1,34 @@
+svg:
+  children:
+    g:
+      id: layers
+      children:
+        g:
+          data:
+            scalename: mm
+          stroke: grey
+          children:
+            circle: {cx: 500, cy: 500, r: 0.5}
+            circle: {cx: 500, cy: 500, r: 5}
+            circle: {cx: 500, cy: 500, r: 50}
+            circle: {cx: 500, cy: 500, r: 500}
+
+        g:
+          data:
+            scalename: mm
+          stroke: yellow
+          children:
+            circle: {cx: 500, cy: 500, r: 0.5}
+            circle: {cx: 500, cy: 500, r: 5}
+            circle: {cx: 500, cy: 500, r: 50}
+            circle: {cx: 500, cy: 500, r: 500}
+
+        g:
+          data:
+            scalename: mm
+          stroke: aqua
+          children:
+            circle: {cx: 500, cy: 500, r: 0.5}
+            circle: {cx: 500, cy: 500, r: 5}
+            circle: {cx: 500, cy: 500, r: 50}
+            circle: {cx: 500, cy: 500, r: 500}

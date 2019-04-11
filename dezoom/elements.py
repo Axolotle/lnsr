@@ -1,0 +1,5 @@
+elements = [
+    'svg',
+    'g',
+    'circle',
+]
