@@ -14,8 +14,10 @@ svg:
       id: layers
       children:
         g:
+          class: test
           data:
             scalename: mm
+            translate: 100 0 50 100
           stroke: grey
           children:
             circle: {cx: 500, cy: 500, r: 0.5}
