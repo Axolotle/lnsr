@@ -1,4 +1,5 @@
 from lxml.etree import ElementTree, Element, tostring
+from html import unescape
 
 from parse import yaml
 
@@ -50,4 +51,4 @@ if __name__ == "__main__":
 
     with open('../templates/svgs/dezoom.svg', 'w') as output:
         input = tostring(document, encoding='utf-8', xml_declaration=True, pretty_print=True)
-        output.write(input.decode())
+        output.write(unescape(input.decode()))

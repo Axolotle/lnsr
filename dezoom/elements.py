@@ -14,4 +14,6 @@ elements = [
     'tref',
     'textPath',
     'textArea',
+
+    'foreignObject',
 ]

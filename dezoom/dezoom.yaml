@@ -52,6 +52,17 @@ svg:
               r: [6378.137, 6356.752]
               data:
                 translate: -6378.137 0 110 130
+            foreignObject:
+              x: 500
+              y: 500
+              width: 400
+              height: 200
+              content: >-
+                <p>La light-nanosecond_ruler est une règle mesurant la distance parcourue par la lumière en une nanoseconde, soit
+                <span class="distance" data-equivalent="10<sup>-9</sup> s//0,000 000 001 s">un milliardième de seconde</span>.
+                <br>
+                Ce fragment d'année-lumière mesure
+                <span class="distance" data-equivalent="environ 30 cm">exactement 29,979 245 8 cm</span>.</p>
 
         g:
           data:
