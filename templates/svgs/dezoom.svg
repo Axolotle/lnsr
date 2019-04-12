@@ -1,20 +1,7 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<svg baseProfile="tiny" height="1000px" version="1.2" viewBox="0 0 1000 1000" width="1000px" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <defs/>
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="tiny" height="100%" version="1.2" viewBox="0 0 1000 1000" width="100%" xmlns="http://www.w3.org/2000/svg">
   <g id="layers">
-    <g data-scalename="mm" stroke="grey">
-      <circle cx="500" cy="500" r="0.5"/>
-      <circle cx="500" cy="500" r="5"/>
-      <circle cx="500" cy="500" r="50"/>
-      <circle cx="500" cy="500" r="500"/>
-    </g>
-    <g data-scalename="mm" stroke="grey">
-      <circle cx="500" cy="500" r="0.5"/>
-      <circle cx="500" cy="500" r="5"/>
-      <circle cx="500" cy="500" r="50"/>
-      <circle cx="500" cy="500" r="500"/>
-    </g>
-    <g data-scalename="mm" stroke="aqua">
+    <g data-scalename="μm" stroke="grey">
       <circle cx="500" cy="500" r="0.5"/>
       <circle cx="500" cy="500" r="5"/>
       <circle cx="500" cy="500" r="50"/>
@@ -25,7 +12,7 @@
       <circle cx="500" cy="500" r="5"/>
       <circle cx="500" cy="500" r="50"/>
       <circle cx="500" cy="500" r="500"/>
-      <path d="M 350.103771,485 v 30 h 299.792458 v -10.5 l 5,3 v -15 l -5,3 v -10.5 Z"/>
+      <foreignObject height="200" width="400" x="500" y="500"><p>La light-nanosecond_ruler est une règle mesurant la distance parcourue par la lumière en une nanoseconde, soit <span class="distance" data-equivalent="10<sup>-9</sup> s//0,000 000 001 s">un milliardième de seconde</span>. <br> Ce fragment d'année-lumière mesure <span class="distance" data-equivalent="environ 30 cm">exactement 29,979 245 8 cm</span>.</p></foreignObject>
     </g>
     <g data-scalename="m" stroke="blue">
       <circle cx="500" cy="500" r="0.5"/>
@@ -39,30 +26,31 @@
     </g>
     <g data-scalename="km" stroke="yellow">
       <g class="data" data-translate="-6378.137 0 110 130">
-        <text class="mid data" data-textrange="0 50" x="500" y="505">Surface</text>
+        <text class="data mid" data-textrange="0 50" x="500" y="505">Surface</text>
         <ellipse cx="6878.137" cy="500" rx="6378.137" ry="6356.752"/>
         <g class="data" data-dotted="45 115" data-hide="115 200">
-          <text class="mid data" data-textrange="20 38" x="494" y="490">Troposphère</text>
+          <text class="data mid" data-textrange="20 38" x="494" y="490">Troposphère</text>
           <ellipse cx="6878.137" cy="500" rx="6390.137" ry="6368.752"/>
-          <text class="mid data" data-textrange="20 50" x="469" y="490">Stratosphère</text>
+          <text class="data mid" data-textrange="20 50" x="469" y="490">Stratosphère</text>
           <ellipse cx="6878.137" cy="500" rx="6428.137" ry="6406.752"/>
-          <text class="mid data" data-textrange="20 52" x="435" y="490">Mésosphère</text>
+          <text class="data mid" data-textrange="20 52" x="435" y="490">Mésosphère</text>
           <ellipse cx="6878.137" cy="500" rx="6458.137" ry="6436.752"/>
-          <text class="mid data" data-textrange="20 100" x="140" y="490">Thermosphère</text>
+          <text class="data mid" data-textrange="20 100" x="140" y="490">Thermosphère</text>
           <ellipse cx="6878.137" cy="500" rx="7078.137" ry="7056.752"/>
         </g>
         <g class="data" data-translate="-374020.863 0 130 190">
-          <path class="top data" d="M -1262.6,500 h1262.6" data-dotted="130 190" data-fade="150 190" data-scale="266.34 0 1337.69 0 130 190" data-show="130 200" stroke="red"/>
+          <path class="data top" d="M -1262.6,500 h1262.6" data-dotted="130 190" data-fade="0 150 190" data-scale="266.34 0 1337.69 0 130 190" data-show="130 200" stroke="red"/>
           <g transform="translate(-4000, 0)">
-            <text class="mid data" data-textrange="0 150" x="500" y="490">Lune</text>
+            <text class="data mid" data-textrange="0 150" x="500" y="490">Lune</text>
             <ellipse class="data" cx="500" cy="500" data-filled="130 200" rx="1737.4" ry="1735.97"/>
           </g>
         </g>
       </g>
     </g>
     <g data-scalename="Mm" stroke="green">
-      <text class="mid data" data-textrange="0 50" x="500" y="500">Terre</text>
+      <text class="data mid" data-textrange="0 50" x="500" y="500">Terre</text>
       <ellipse cx="500" cy="500" rx="6.378137" ry="6.356752"/>
+      <text class="data mid" data-textrange="0 150" x="118.5" y="500">Lune</text>
       <ellipse cx="500" cy="500" rx="1.7374" ry="1.73597" transform="translate(-384.399, 0)"/>
     </g>
     <g data-scalename="Gm" stroke="purple">
@@ -71,7 +59,7 @@
       <circle cx="500" cy="500" r="50"/>
       <circle cx="500" cy="500" r="500"/>
     </g>
-    <g data-scalename="Tm" stroke="white">
+    <g data-scalename="Tm" stroke="aqua">
       <circle cx="500" cy="500" r="0.5"/>
       <circle cx="500" cy="500" r="5"/>
       <circle cx="500" cy="500" r="50"/>

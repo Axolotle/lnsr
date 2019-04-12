@@ -56,11 +56,11 @@ class SVGMap {
     }
 
     switchLayer(n) {
-        this.layers[n-2].hide();
-        this.layers[n-1].transform(0.001, 1000);
-        this.layers[n].transform(1, 1);
-        this.layers[n+1].transform(1000, 0.001);
-        this.layers[n+2].hide();
+        if (this.layers[n-2]) this.layers[n-2].hide();
+        if (this.layers[n-1]) this.layers[n-1].transform(0.001, 1000);
+        if (this.layers[n]) this.layers[n].transform(1, 1);
+        if (this.layers[n+1]) this.layers[n+1].transform(1000, 0.001);
+        if (this.layers[n+2]) this.layers[n+2].hide();
         document.getElementById('scale').textContent = this.layers[n].elem.dataset.scalename;
     }
 }

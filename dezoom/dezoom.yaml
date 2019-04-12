@@ -13,45 +13,37 @@ svg:
     g:
       id: layers
       children:
+
+# ─────────────────────────\────────────────────────────────────────────────────
+#       ╭╮╮╶┬╴╭─╴┌─╮╭─╮╭╮╮┌─╴╶┬╴┌─╮┌─╴
+#       │││ │ │  ├┬╯│ ││││├─╴ │ ├┬╯├─╴
+#       ╵╵╵╶┴╴╰─╴╵ ╰╰─╯╵╵╵╰─╴ ╵ ╵ ╰╰─╴
+# ──────────────────────────────────────────────────────────────────────────────
         g:
-          class: test
           data:
-            scalename: mm
-            translate: 100 0 50 100
+            scalename: μm
           stroke: grey
           children:
-            circle: {cx: 500, cy: 500, r: 0.5}
-            circle: {cx: 500, cy: 500, r: 5}
-            circle: {cx: 500, cy: 500, r: 50}
-            circle: {cx: 500, cy: 500, r: 500}
+            circle: {c: [500, 500], r: 0.5}
+            circle: {c: [500, 500], r: 5}
+            circle: {c: [500, 500], r: 50}
+            circle: {c: [500, 500], r: 500}
 
+
+# ─────────────────────────\────────────────────────────────────────────────────
+#       ╭╮╮╶┬╴╷  ╷  ╶┬╴╭╮╮┌─╴╶┬╴┌─╮┌─╴
+#       │││ │ │  │   │ │││├─╴ │ ├┬╯├─╴
+#       ╵╵╵╶┴╴╰─╴╰─╴╶┴╴╵╵╵╰─╴ ╵ ╵ ╰╰─╴
+# ──────────────────────────────────────────────────────────────────────────────
         g:
           data:
             scalename: mm
-          stroke: yellow
+          stroke: red
           children:
-            circle: {cx: 500, cy: 500, r: 0.5}
-            circle: {cx: 500, cy: 500, r: 5}
-            circle: {cx: 500, cy: 500, r: 50}
-            circle: {cx: 500, cy: 500, r: 500}
-
-        g:
-          data:
-            scalename: mm
-          stroke: aqua
-          children:
-            circle: {cx: 500, cy: 500, r: 0.5, class: fill}
-            circle: {cx: 500, cy: 500, r: 5}
-            circle: {cx: 500, cy: 500, r: 50}
-            circle: {cx: 500, cy: 500, r: 500}
-            text: {content: Challenger Deep, x: 11771, y: -1000}
-            path: {d: 'M500,-2500 10971,-1000 500,500'}
-            text: {content: Challenger Deep, x: 11771, y: -1000}
-            ellipse:
-              c: [6878.137, 500]
-              r: [6378.137, 6356.752]
-              data:
-                translate: -6378.137 0 110 130
+            circle: {c: [500, 500], r: 0.5}
+            circle: {c: [500, 500], r: 5}
+            circle: {c: [500, 500], r: 50}
+            circle: {c: [500, 500], r: 500}
             foreignObject:
               x: 500
               y: 500
@@ -64,22 +56,173 @@ svg:
                 Ce fragment d'année-lumière mesure
                 <span class="distance" data-equivalent="environ 30 cm">exactement 29,979 245 8 cm</span>.</p>
 
-        g:
-          data:
-            scalename: mm
-          stroke: aqua
-          children:
-            circle: {cx: 500, cy: 500, r: 0.5}
-            circle: {cx: 500, cy: 500, r: 5}
-            circle: {cx: 500, cy: 500, r: 50}
-            circle: {cx: 500, cy: 500, r: 500}
 
+# ──────────\───────────────────────────────────────────────────────────────────
+#       ╭╮╮┌─╴╶┬╴┌─╮┌─╴
+#       │││├─╴ │ ├┬╯├─╴
+#       ╵╵╵╰─╴ ╵ ╵ ╰╰─╴
+# ──────────────────────────────────────────────────────────────────────────────
         g:
           data:
-            scalename: mm
+            scalename: m
+          stroke: blue
+          children:
+            circle: {c: [500, 500], r: 0.5}
+            circle: {c: [500, 500], r: 5}
+            circle: {c: [500, 500], r: 50}
+            circle: {c: [500, 500], r: 500}
+            text: {content: Challenger Deep, x: 11771, y: -1000}
+            path: {d: 'M500,-2500 10971,-1000 500,500'}
+            text: {content: Mont Everest, x: -9348, y: 2000, class: end}
+            path: {d: 'M500,500 -8848,2000 500,3500'}
+
+
+# ──────────────────────\───────────────────────────────────────────────────────
+#       ╷ ╭╶┬╴╷  ╭─╮╭╮╮┌─╴╶┬╴┌─╮┌─╴
+#       ├┴╮ │ │  │ ││││├─╴ │ ├┬╯├─╴
+#       ╵ ╵╶┴╴╰─╴╰─╯╵╵╵╰─╴ ╵ ╵ ╰╰─╴
+# ──────────────────────────────────────────────────────────────────────────────
+        g:
+          data:
+            scalename: km
+          stroke: yellow
+          children:
+            # g:
+            #   children:
+            #     circle: {c: [500, 500], r: 0.5}
+            #     circle: {c: [500, 500], r: 5}
+            #     circle: {c: [500, 500], r: 50}
+            #     circle: {c: [500, 500], r: 500}
+
+            g:
+              data:
+                translate: -6378.137 0 110 130
+
+              children:
+                # ellipse: {c: [6878.137, 500], r: [1220, 1220]}
+                # ellipse: {c: [6878.137, 500], r: [3480, 3480]}
+                # ellipse: {c: [6878.137, 500], r: [6365, 6365]}
+
+                text: {content: Surface, x: 500, y: 505, data: {textrange: 0 50}, class: mid}
+                ellipse: {c: [6878.137, 500], r: [6378.137, 6356.752]}
+
+                g:
+                  data:
+                    dotted: 45 115
+                    hide: 115 200
+                  children:
+                    text: {content: Troposphère, x: 494, y: 490, data: {textrange: 20 38}, class: mid}
+                    ellipse: {c: [6878.137, 500], r: [6390.137, 6368.752]}
+
+                    text: {content: Stratosphère, x: 469, y: 490, data: {textrange: 20 50}, class: mid}
+                    ellipse: {c: [6878.137, 500], r: [6428.137, 6406.752]}
+
+                    text: {content: Mésosphère, x: 435, y: 490, data: {textrange: 20 52}, class: mid}
+                    ellipse: {c: [6878.137, 500], r: [6458.137, 6436.752]}
+
+                    text: {content: Thermosphère, x: 140, y: 490, data: {textrange: 20 100}, class: mid}
+                    ellipse: {c: [6878.137, 500], r: [7078.137, 7056.752]}
+
+                # text: {content: Terre, x: 6878.137, y: 500, data: {textrange: 0 150}, class: mid}
+
+                g:
+                  # translateX = -dist(Terre, Lune) + arbitrary MoonX + r(Terre)
+                  # translateX = -384399            + 4000                + 6378.137
+                  data: {translate: -374020.863 0 130 190}
+                  children:
+                    path:
+                      # posX = previous translate + r(Lune) + center(doc) + margin
+                      # posX = -4000              + 1737.4  + 500         + 500
+                      # posX = -1262.6
+                      # len(line) = +(prev translate) - r(Lune) - posX   - center(doc)
+                      # len(line) = 4000              - 1737.4  - 1262.6 - 500
+                      d: 'M -1262.6,500 h1262.6'
+                      data:
+                        # scale = (dist(Terre, Lune) - r(Lune) - r(Terre) - (margin * 2)) / len(line)
+                        # scale = (384399            - 1737.4  - 6378.137 - (20000  * 2)) / 1262.6
+                        # scale = 266.3420426104863
+                        # translateX = +(poxX) + (margin / scale)
+                        # translateX = 1262.6 + (20000 / 266.34)
+                        # translateX = 1337.691987684914
+                        scale: 266.34 0 1337.69 0 130 190
+                        show: 130 200
+                        dotted: 130 190
+                        fade: 0 150 190
+
+                      class: top
+                      stroke: red
+                    g:
+                      transform: translate(-4000, 0)
+                      children:
+                        text: {content: Lune, x: 500, y: 490, data: {textrange: 0 150}, class: mid}
+                        ellipse: {c: [500, 500], r: [1737.4, 1735.97], data: {filled: 130 200}}
+
+
+# ──────────/───────────\───────────────────────────────────────────────────────
+#       ╭╮╮┌─╴╭─╮╭─┐╭╮╮┌─╴╶┬╴┌─╮┌─╴
+#       │││├─╴│╶╮├─┤│││├─╴ │ ├┬╯├─╴
+#       ╵╵╵╰─╴╰─╯╵ ╵╵╵╵╰─╴ ╵ ╵ ╰╰─╴
+# ──────────────────────────────────────────────────────────────────────────────
+        g:
+          data:
+            scalename: Mm
+          stroke: green
+          children:
+            # circle: {c: [500, 500], r: 0.5}
+            # circle: {c: [500, 500], r: 5}
+            # circle: {c: [500, 500], r: 50}
+            # circle: {c: [500, 500], r: 500}
+
+            text: {content: Terre, x: 500, y: 500, data: {textrange: 0 50}, class: mid}
+            ellipse: {c: [500, 500], r: [6.378137, 6.356752]}
+
+            text: {content: Lune, x: 118.5, y: 500, data: {textrange: 0 150}, class: mid}
+            ellipse: {c: [500, 500], r: [1.7374, 1.73597], transform: 'translate(-384.399, 0)'}
+
+
+# ──────────────────────\───────────────────────────────────────────────────────
+#       ╭─╮╶┬╴╭─╮╭─┐╭╮╮┌─╴╶┬╴┌─╮┌─╴
+#       │╶╮ │ │╶╮├─┤│││├─╴ │ ├┬╯├─╴
+#       ╰─╯╶┴╴╰─╯╵ ╵╵╵╵╰─╴ ╵ ╵ ╰╰─╴
+# ──────────────────────────────────────────────────────────────────────────────
+        g:
+          data:
+            scalename: Gm
+          stroke: purple
+          children:
+            circle: {c: [500, 500], r: 0.5}
+            circle: {c: [500, 500], r: 5}
+            circle: {c: [500, 500], r: 50}
+            circle: {c: [500, 500], r: 500}
+
+
+# ──────────/───────────\───────────────────────────────────────────────────────
+#       ╶┬╴┌─╴┌─╮╭─┐╭╮╮┌─╴╶┬╴┌─╮┌─╴
+#        │ ├─╴├┬╯├─┤│││├─╴ │ ├┬╯├─╴
+#        ╵ ╰─╴╵ ╰╵ ╵╵╵╵╰─╴ ╵ ╵ ╰╰─╴
+# ──────────────────────────────────────────────────────────────────────────────
+        g:
+          data:
+            scalename: Tm
           stroke: aqua
           children:
-            circle: {cx: 500, cy: 500, r: 0.5}
-            circle: {cx: 500, cy: 500, r: 5}
-            circle: {cx: 500, cy: 500, r: 50}
-            circle: {cx: 500, cy: 500, r: 500}
+            circle: {c: [500, 500], r: 0.5}
+            circle: {c: [500, 500], r: 5}
+            circle: {c: [500, 500], r: 50}
+            circle: {c: [500, 500], r: 500}
+
+
+# ──────────/───────────\───────────────────────────────────────────────────────
+#       ┌─╮┌─╴╶┬╴╭─┐╭╮╮┌─╴╶┬╴┌─╮┌─╴
+#       ├─╯├─╴ │ ├─┤│││├─╴ │ ├┬╯├─╴
+#       ╵  ╰─╴ ╵ ╵ ╵╵╵╵╰─╴ ╵ ╵ ╰╰─╴
+# ──────────────────────────────────────────────────────────────────────────────
+        g:
+          data:
+            scalename: Pm
+          stroke: orange
+          children:
+            circle: {c: [500, 500], r: 0.5}
+            circle: {c: [500, 500], r: 5}
+            circle: {c: [500, 500], r: 50}
+            circle: {c: [500, 500], r: 500}
