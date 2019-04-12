@@ -6,30 +6,36 @@ from parse import yaml
 def itering(items, container):
     for (tag, options) in items:
         children = options.pop('children', None)
-        elem = Element(tag, **refactorize_options(options))
+        text = options.pop('content', None)
+        elem = Element(tag, **refactorize_options(options, tag))
+        elem.text = text
         if children:
             itering(children, elem)
         container.append(elem)
 
-def refactorize_options(opts):
+def refactorize_options(opts, tag):
     haddata = False
     options = {}
+    classes = []
     for key, value in opts.items():
         if key == 'data':
+            if 'scalename' not in opts['data'] or len(opts['data']) > 1:
+                classes.append('data')
             for name, val in opts[key].items():
                 options['data-' + name] = val
-                if name != 'scalename':
-                    haddata = True
+        elif key in ['c', 'r'] and type(value) == list:
+            options[key + 'x'] = str(value[0])
+            options[key + 'y'] = str(value[1])
+        elif key == 'class':
+            classes = [*classes, *opts[key].split(' ')]
         else:
             options[key] = str(value)
 
-    if haddata:
-        if 'class' in options:
-            options['class'] += ' data'
-        else:
-            options['class'] = 'data'
+    if len(classes):
+        options['class'] = ' '.join(classes)
 
     return options
+
 
 if __name__ == "__main__":
     with open('dezoom.yaml', 'r') as input:

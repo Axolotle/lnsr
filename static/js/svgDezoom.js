@@ -4,14 +4,9 @@ class SVGMap {
         this.layers = Array.from(element.querySelectorAll('#layers > g')).map(layer => {
             return new Layer(layer);
         });
-        this.actualLayer = 6;
+        this.actualLayer = 2;
         this.steps = 100;
-        this.step = 100;
-
-        let elements = this.elem.querySelectorAll(':not(g):not(text)');
-        for (let i = elements.length - 1; i > -1; i--) {
-            elements[i].setAttribute('vector-effect', 'non-scaling-stroke')
-        }
+        this.step = 65;
 
         this.switchLayer(this.actualLayer);
         this.zoom(0);

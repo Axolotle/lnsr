@@ -8,14 +8,9 @@
 #layers {
     fill: none;
     stroke-width: 3;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+    /* stroke-linecap: round;
+    stroke-linejoin: round; */
     stroke-miterlimit: 4;
-}
-svg text {
-    stroke: none;
-    fill: white;
-	background-color: yellow;
 }
 #scale {
 	position: absolute;
@@ -24,23 +19,14 @@ svg text {
 	left: 15px;
 }
 
-.test {
-	stroke-width: 6;
-}
-.t {
-    transform-origin: center;
-    transform-box: fill-box;
+line, rect, circle, ellipse, polyline, polygon, path {
+	vector-effect: non-scaling-stroke;
 }
 
-/* #small {
-	transform: matrix(0.001, 0, 0, 0.001, 499.5, 499.5);
-	transform: matrix3d(0.001, 0, 0, 0, 0, 0.001, 0, 0, 0, 0, 1, 0, 499.5, 499.5, 0, 0);
+text {
+    stroke: none;
+    fill: white;
 }
-#big {
-	transform: matrix(1000, 0, 0, 1000, -499500, -499500);
-	transform: matrix3d(1000, 0, 0, 0, 0, 1000, 0, 0, 0, 0, 1, 0, -499500, -499500);
-} */
-
 text.mid {
 	text-anchor: middle;
 }
@@ -49,5 +35,10 @@ text.end {
 }
 
 .dotted {
-	stroke-dasharray: 1rem;
+	stroke-dasharray: .75rem;
+}
+.fill {
+	vector-effect: none;
+	stroke: transparent;
+	fill: white;
 }

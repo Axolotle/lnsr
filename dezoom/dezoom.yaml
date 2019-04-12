@@ -40,6 +40,34 @@ svg:
             scalename: mm
           stroke: aqua
           children:
+            circle: {cx: 500, cy: 500, r: 0.5, class: fill}
+            circle: {cx: 500, cy: 500, r: 5}
+            circle: {cx: 500, cy: 500, r: 50}
+            circle: {cx: 500, cy: 500, r: 500}
+            text: {content: Challenger Deep, x: 11771, y: -1000}
+            path: {d: 'M500,-2500 10971,-1000 500,500'}
+            text: {content: Challenger Deep, x: 11771, y: -1000}
+            ellipse:
+              c: [6878.137, 500]
+              r: [6378.137, 6356.752]
+              data:
+                translate: -6378.137 0 110 130
+
+        g:
+          data:
+            scalename: mm
+          stroke: aqua
+          children:
+            circle: {cx: 500, cy: 500, r: 0.5}
+            circle: {cx: 500, cy: 500, r: 5}
+            circle: {cx: 500, cy: 500, r: 50}
+            circle: {cx: 500, cy: 500, r: 500}
+
+        g:
+          data:
+            scalename: mm
+          stroke: aqua
+          children:
             circle: {cx: 500, cy: 500, r: 0.5}
             circle: {cx: 500, cy: 500, r: 5}
             circle: {cx: 500, cy: 500, r: 50}
