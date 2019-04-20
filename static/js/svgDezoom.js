@@ -4,9 +4,9 @@ class SVGMap {
         this.layers = Array.from(element.querySelectorAll('#layers > g')).map(layer => {
             return new Layer(layer);
         });
-        this.actualLayer = 2;
+        this.actualLayer = 5;
         this.steps = 100;
-        this.step = 65;
+        this.step = 40;
 
         this.switchLayer(this.actualLayer);
         this.zoom(0);
@@ -46,8 +46,8 @@ class SVGMap {
         }
 
         let stepRatio = Math.pow(this.step / this.steps, 3);
-        let start = (499.5 - stepRatio * 499.5).toFixed(3);
-        let size = (stepRatio * 999 + 1).toFixed(3);
+        let start = stepRatio * -499.5 - 0.5;
+        let size = stepRatio * 999 + 1;
         this.elem.setAttribute('viewBox', [start, start, size, size].join(' '));
 
         for (let i = this.actualLayer - 1; i <= this.actualLayer + 1; i++) {
@@ -80,7 +80,7 @@ class Layer {
 
     transform(scale, multiplier) {
         if (scale !== 1) {
-            let pos = 500 - 500 * scale;
+            let pos = 0 * scale;
             let matrix ='matrix('+scale+' 0 0 '+scale+' '+pos+' '+pos+')'
             this.elem.setAttribute('transform', matrix);
             this.elem.removeAttribute('id');
