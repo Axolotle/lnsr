@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     font-size: 1em;
-    font-family: hack, monospace;
+    font-family: 'Hack', monospace;
 }
 body, html {
     overflow: hidden;
@@ -22,4 +22,14 @@ body, html {
     bottom: 2.2em;
     right: 1em;
     color: #ff00ff;
+}
+
+/* Hack v2.020 - https://sourcefoundry.org/hack/
+ * Licenses - Fonts: Hack Open Font License + Bitstream Vera license,
+ * CSS: MIT License */
+@font-face {
+  font-family: 'Hack';
+  src: url('fonts/hack/hack-regular-webfont.woff2?v=2.020') format('woff2'), url('fonts/hack/hack-regular-webfont.woff?v=2.020') format('woff'), url('../fonts/hack/hack-regular-webfont.ttf?v=2.020') format('truetype');
+  font-weight: 400;
+  font-style: normal;
 }

@@ -7,11 +7,16 @@ function init() {
 		var container = collada.scene;
 		container.scale.set(0.1, 0.1, 0.1);
 
-		containers = [
-			[container, container.clone()],
-			[container.clone(), container.clone()],
-			[container.clone(), container.clone()]
-		];
+		containers = [];
+		for (let i = 0; i < 3; i++) {
+			let row = [];
+			for (var j = 0; j < pos.length; j++) {
+				let clone = container.clone();
+				row.push(clone);
+				scene.add(clone);
+			}
+			containers.push(row);
+		}
 
 		containers.move = function (x) {
 			for (let i = 0; i < this.length; i++) {
@@ -22,24 +27,13 @@ function init() {
 		};
 
 		containers.reset = function () {
-			var containersPos = [
-				[[  0, -4.1, 0], [  0, 4.1, 0]],
-				[[-19, -4.1, 0], [-19, 4.1, 0]],
-				[[-38, -4.1, 0], [-38, 4.1, 0]]
-			]
-
 			for (let i = 0; i < this.length; i++) {
 				for (let j = 0; j < this[i].length; j++) {
-					containers[i][j].position.set(...containersPos[i][j]);
+					containers[i][j].position.set(i * -19, pos[j][0], pos[j][1]);
 				}
 			}
 		}
 
-		for (let i = 0; i < containers.length; i++) {
-			for (let j = 0; j < containers[i].length; j++) {
-				scene.add(containers[i][j]);
-			}
-		}
 		setupAnim();
 	} );
 
@@ -79,10 +73,10 @@ async function setupAnim() {
 		renderer.render(scene, camera);
 		clock = new THREE.Clock();
 
-		numberElem.textContent = 'container n°' + n + '/3194';
+		numberElem.textContent = 'column ' + n + ' / 3194';
 		distanceElem.textContent = '0 m';
 
-		await sleep(2000);
+		await sleep(5000);
 		animate();
 }
 
@@ -100,18 +94,19 @@ async function animate() {
 	var step = delta * meterIn3D;
 
 	distance += step;
-	numberElem.textContent = 'container n°' + n + '/3194';
+	numberElem.textContent = 'column ' + n + ' / 3194';
 	distanceElem.textContent = (distance / meterIn3D).toFixed(3) + ' m';
 
 	// cancel the animation after last container
 	if (actualPos >= 57) {
+		// console.log('distance', (distance / meterIn3D), actualPos, time);
 		cancelAnimationFrame(raf);
-		await sleep(2000);
+		await sleep(5000);
 		setupAnim();
 	}
 	// increment container's number at first and last container
 	else if ((n === maxN - 1 && actualPos >= 38) || (n == 1 && actualPos >= 19)) {
-		console.log('distance', (distance / meterIn3D), actualPos, time);
+		// console.log('distance', (distance / meterIn3D), actualPos, time);
 		n++;
 	}
 	// reset second container's position
@@ -134,7 +129,8 @@ function sleep(ms) {
 var widthMeter = 6.058;
 var width3D = 19;
 var meterIn3D = width3D / widthMeter;
-var maxN = 4;
+var maxN = 3194;
+var pos = [[-4.1, 0 ], [4.1, 0]]
 
 if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
