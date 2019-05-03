@@ -4,71 +4,92 @@ class SVGMap {
         this.layers = Array.from(element.querySelectorAll('#layers > g')).map(layer => {
             return new Layer(layer);
         });
-        this.actualLayer = 5;
-        this.steps = 100;
-        this.step = 40;
+        this.actualLayer = 1;
 
-        this.switchLayer(this.actualLayer);
-        this.zoom(0);
+        this.speed = 300000;
+        this.scale = 1;
+        this.baseSize = 299.792458;
+        this.zoomValue = 0;
 
-        var _this = this;
-        function animate() {
-            _this.zoom(1);
-            requestAnimationFrame(animate);
-        }
-        // IE9, Chrome, Safari, Opera
-        window.addEventListener('mousewheel', (e) => {
-            requestAnimationFrame(() => {
-                this.zoom(-Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))));
-            });
-        });
-        // Firefox
-        window.addEventListener('DOMMouseScroll', (e) => {
-            requestAnimationFrame(() => {
-                this.zoom(-Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))));
-            });
+        this.switchLayers(0);
+        this.render(this.baseSize);
+
+        window.addEventListener('wheel', (e) => {
+            if (e.deltaY < 0) {
+                this.zoom(1);
+            } else {
+                this.zoom(-1);
+            }
         });
 
         window.addEventListener('keypress', e => {
             if (e.key != ' ') return;
-            let multiplier = 1;
+            let multiplier = 0;
             this.layers.filter(layer => !layer.elem.classList.contains('hide'))
-            .forEach(layer => console.log(layer.name, this.step + 100 * multiplier--));
+            .forEach(layer => console.log(layer.name, Math.round(this.width + 1000 * multiplier++)));
         });
+
+        // requestAnimationFrame(this.animate.bind(this));
     }
 
-    zoom(delta) {
-        this.step += delta;
-        if (this.step <= 0 || this.step >= this.steps) {
-            this.step = delta === -1 ? this.steps : 1;
-            this.actualLayer += delta;
-            this.switchLayer(this.actualLayer);
-        }
-
-        let stepRatio = Math.pow(this.step / this.steps, 3);
-        let start = stepRatio * -499.5 - 0.5;
-        let size = stepRatio * 999 + 1;
-        this.elem.setAttribute('viewBox', [start, start, size, size].join(' '));
-
-        for (let i = this.actualLayer - 1; i <= this.actualLayer + 1; i++) {
-            this.layers[i].update(size, this.step);
-        }
+    set viewBox(args) {
+        this.elem.setAttribute('viewBox', [args[0], args[0], args[1], args[1]].join(' '));
     }
 
-    switchLayer(n) {
+    get width() {
+        return parseFloat(this.elem.getAttribute('viewBox').split(' ')[2]);
+    }
+
+    zoom(direction) {
+        this.zoomValue += -direction * 5;
+        let size = this.baseSize * Math.exp(this.zoomValue/100) * this.scale;
+        if (size > 1000 || size < 1) {
+            size *= this.switchLayers(direction);
+        }
+        this.render(size);
+    }
+
+    animate(timestamp) {
+        let extraDistance = timestamp * this.speed;
+        let size = (this.baseSize + this.baseSize * extraDistance) * this.scale;
+        if (size > 1000) {
+            size *= this.switchLayers(-1);
+        }
+        this.render(size);
+        requestAnimationFrame(this.animate.bind(this));
+    }
+
+    switchLayers(direction) {
+        this.actualLayer -= direction;
+        let n = this.actualLayer;
         if (this.layers[n-2]) this.layers[n-2].hide();
         if (this.layers[n-1]) this.layers[n-1].transform(0.001, 1000);
-        if (this.layers[n]) this.layers[n].transform(1, 1);
+        if (this.layers[n])   this.layers[n].transform(1, 1);
         if (this.layers[n+1]) this.layers[n+1].transform(1000, 0.001);
         if (this.layers[n+2]) this.layers[n+2].hide();
+
         document.getElementById('scale').textContent = this.layers[n].elem.dataset.scalename;
+
+        if (direction != 0) {
+            let multiplier = direction == -1 ? 0.001 : 1000;
+            this.scale *= multiplier;
+            return multiplier;
+        }
+    }
+
+    render(size) {
+        this.viewBox = [-size / 2, size];
+        let multiplier = 0;
+        for (let i = this.actualLayer - 1; i <= this.actualLayer + 1; i++) {
+            this.layers[i].update(size, Math.round(size + 1000 * multiplier++));
+        }
     }
 }
 
 class Layer {
     constructor(layerElem) {
         this.elem = layerElem;
-        this.elem.classList.add('hide');
+        this.hide();
         this.name = layerElem.dataset.scalename + '-' + layerElem.getAttribute('stroke');
         this.multiplier = 1;
 	    this.transformables = Array.from(this.elem.getElementsByClassName('data'));
@@ -118,7 +139,13 @@ class Layer {
     updateTextSize(elem, range, width, step) {
         // range indexes: {0: startStep, 1: endStep}
         if (step >= range[0] && step <= range[1]) {
-            elem.style.fontSize = (width / 1000) * (40 * this.multiplier) + 'px';
+            if (elem.tagName === 'foreignObject') {
+                for (var i = 0; i < elem.children.length; i++) {
+                    elem.children[i].style.fontSize = (width / 1000) * (40 * this.multiplier) + 'px';
+                }
+            } else {
+                elem.style.fontSize = (width / 1000) * (40 * this.multiplier) + 'px';
+            }
         }
     }
 
