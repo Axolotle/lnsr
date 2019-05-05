@@ -26,7 +26,24 @@ class SVGMap {
             if (e.key != ' ') return;
             let multiplier = 0;
             this.layers.filter(layer => !layer.elem.classList.contains('hide'))
-            .forEach(layer => console.log(layer.name, Math.round(this.width + 1000 * multiplier++)));
+            .forEach(layer => console.log(layer.name, 3000 - Math.round((1000 - this.width) + 1000 * multiplier++)));
+            console.log(this.zoomValue);
+        });
+
+        document.getElementById('scroll').addEventListener('click', (e) => {
+            let newZoomValue = Math.round(e.layerY / e.target.getBoundingClientRect().height * 3360);
+            this.zoomValue = newZoomValue - newZoomValue % 5;
+            let size = this.baseSize * Math.exp(this.zoomValue/100) * this.scale;
+            if (size > 1000) {
+                while (size > 1000) {
+                    size *= this.switchLayers(-1);
+                }
+            } else if (size < 1) {
+                while (size < 1) {
+                    size *= this.switchLayers(1);
+                }
+            }
+            this.render(size);
         });
 
         // requestAnimationFrame(this.animate.bind(this));
@@ -81,7 +98,7 @@ class SVGMap {
         this.viewBox = [-size / 2, size];
         let multiplier = 0;
         for (let i = this.actualLayer - 1; i <= this.actualLayer + 1; i++) {
-            this.layers[i].update(size, Math.round(size + 1000 * multiplier++));
+            this.layers[i].update(size, 3000 - Math.round((1000 - size) + 1000 * multiplier++));
         }
     }
 }
@@ -101,9 +118,7 @@ class Layer {
 
     transform(scale, multiplier) {
         if (scale !== 1) {
-            let pos = 0 * scale;
-            let matrix ='matrix('+scale+' 0 0 '+scale+' '+pos+' '+pos+')'
-            this.elem.setAttribute('transform', matrix);
+            this.elem.setAttribute('transform', 'matrix('+scale+' 0 0 '+scale+' 0 0)');
             this.elem.removeAttribute('id');
         } else {
             this.elem.removeAttribute('transform');
@@ -114,8 +129,6 @@ class Layer {
     }
 
     update(width, step) {
-        if (this.multiplier !== 1) step += this.multiplier < 1 ? -100 : 100;
-
         this.transformables.forEach(elem => {
             for (let key in elem.dataset) {
                 let options = parseOptions(elem.dataset[key]);
@@ -152,7 +165,7 @@ class Layer {
     updateTranslate(elem, opts, step) {
         // opts indexes: {0: translateX, 1: translateY, 2: startStep, 3: endStep}
         if (step >= opts[2] && step <= opts[3]) {
-            let ratio = Math.pow((step - opts[2]) / (opts[3] - opts[2]), 3);
+            let ratio = Math.pow((step - opts[2]) / (opts[3] - opts[2]), 2);
             elem.setAttribute('transform',
                 'translate('+(ratio * opts[0]).toFixed(3)+','+(ratio * opts[1]).toFixed(3)+')'
             );
@@ -162,7 +175,7 @@ class Layer {
     updateScale(elem, opts, step) {
         // opts indexes: {0: scaleX, 1: scaleY, 2: translateX, 3: translateY, 4: startStep, 5: endStep}
         if (step >= opts[4] && step <= opts[5]) {
-            let ratio = Math.pow((step - opts[4]) / (opts[5] - opts[4]), 3);
+            let ratio = Math.pow((step - opts[4]) / (opts[5] - opts[4]), 2);
             ratio = [ratio * opts[0], ratio * opts[1]];
             elem.setAttribute('transform',
                 'matrix('+(ratio[0]+1)+' 0 0 '+(ratio[1]+1)+' '+(ratio[0]*opts[2])+' '+(ratio[1]*opts[3])+')'

@@ -7,9 +7,9 @@
 }
 #layers {
     fill: none;
-    stroke-width: 3;
-    /* stroke-linecap: round;
-    stroke-linejoin: round; */
+    stroke-width: 1px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
     stroke-miterlimit: 4;
 }
 #scale {
@@ -17,6 +17,15 @@
 	font-size: 50px;
 	top: 0;
 	left: 15px;
+}
+#scroll {
+	position: absolute;
+	z-index: 200;
+	right: 20px;
+	top: 10px;
+	height: calc(100% - 20px);
+	width: 5px;
+	background-color: red;
 }
 
 line, rect, circle, ellipse, polyline, polygon, path {
@@ -26,6 +35,15 @@ line, rect, circle, ellipse, polyline, polygon, path {
 text {
     stroke: none;
     fill: white;
+	dominant-baseline: middle;
+}
+text.black {
+	fill: black;
+}
+text.vertical {
+	writing-mode: vertical-rl;
+	text-orientation: upright;
+	line-height: 1px;
 }
 text.mid {
 	text-anchor: middle;
@@ -35,10 +53,17 @@ text.end {
 }
 
 .dotted {
-	stroke-dasharray: .75rem;
+	stroke-width: 1.5;
+	stroke-dasharray: 10 20;
 }
 .fill {
 	vector-effect: none;
 	stroke: transparent;
 	fill: white;
+}
+
+foreignObject p {
+	max-width: 70%;
+	font-size: 8px;
+	margin-bottom: 8px;
 }

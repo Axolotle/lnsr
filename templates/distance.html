@@ -1,10 +1,16 @@
 {% extends "base.html" %}
+
+{% block title %}
+<title>Light-year dezoom</title>
+{% endblock %}
+
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/svg.css') }}" />
 {% endblock %}
 {% block main %}
 <main>
     <span id="scale"></span>
+    <div id="scroll"></div>
     <section id="dezoom">
         {% include 'svgs/dezoom.svg' %}
     </section>
